@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>UseBedrolls</name>
+	<name>Use Bedrolls</name>
 	<author>Uuugggg</author>
 	<targetVersion>0.18.0</targetVersion>
 	<description>Bedrolls are used from the inventory. When a pawn needs to rest but can't find a bed, he'll place a bedroll from his inventory.
