@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Bedroll" or defName="BedrollDouble"]</xpath>
+		<value>
+			<recipeMaker>
+				<workSpeedStat>TailoringSpeed</workSpeedStat>
+				<workSkill>Construction</workSkill>
+				<effectWorking>Tailor</effectWorking>
+				<soundWorking>Recipe_Tailor</soundWorking>
+				<recipeUsers>
+					<li>ElectricTailoringBench</li>
+					<li>HandTailoringBench</li>
+				</recipeUsers>
+				<unfinishedThingDef>UnfinishedApparel</unfinishedThingDef>
+			</recipeMaker>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Bedroll"]/statBases</xpath>
+		<value>
+			<WorkToMake>350</WorkToMake>
+			<!-- same as WorkToBuild-->
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="BedrollDouble"]/statBases</xpath>
+		<value>
+			<WorkToMake>600</WorkToMake>
+			<!-- same as WorkToBuild-->
+		</value>
+	</Operation>
+			
+</Patch>

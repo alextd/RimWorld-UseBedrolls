@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>UseBedrolls</name>
+	<author>Uuugggg</author>
+	<targetVersion>0.18.0</targetVersion>
+	<description>Bedrolls are used from the inventory. When a pawn needs to rest but can't find a bed, he'll place a bedroll from his inventory.
+
+Bedrolls are picked back up after sleeping.
+
+Bedrolls are shared amongst members of a caravan: they will all have one so you don't need to find a bedroll from someone else.
+
+(This all technically applies to any type of bed, if you can get a pawn to hold it.)
+
+Bedrolls can be created at tailoring benches (in minified form instead of a constructed building)
+
+I suggest you get the "Please Ignore Me Passing" mod so the idiot colonists can actually put the bedroll down if someone is standing in the way.</description>
+	<url>https://steamcommunity.com/id/Uuugggg/myworkshopfiles/?appid=294100</url>
+</ModMetaData>

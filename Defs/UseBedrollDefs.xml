@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<JobDef>
+		<defName>PlaceBedroll</defName>
+		<driverClass>UseBedrolls.JobDriver_PlaceBedroll</driverClass>
+		<reportString>placing TargetA</reportString>
+		<casualInterruptible>true</casualInterruptible>
+		<suspendable>false</suspendable>
+	</JobDef>
+
+	<JobDef>
+		<defName>TakeBedroll</defName>
+		<driverClass>UseBedrolls.JobDriver_TakeBedroll</driverClass>
+		<reportString>taking TargetA</reportString>
+		<casualInterruptible>true</casualInterruptible>
+		<suspendable>false</suspendable>
+	</JobDef>
+
+	<ThinkTreeDef>
+		<defName>TakeBedrollTree</defName>
+		<insertTag>Humanlike_PostDuty</insertTag>
+		<insertPriority>100</insertPriority>
+		<thinkRoot Class="UseBedrolls.JobGiver_TakeBedBack" />
+	</ThinkTreeDef>
+	
+</Defs>
