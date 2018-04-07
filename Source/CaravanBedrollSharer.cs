@@ -42,7 +42,7 @@ namespace UseBedrolls
 
 		public static int CountBeds(this Pawn pawn)
 		{
-			return pawn.inventory.innerContainer.Where(t => t.GetInnerIfMinified() is Building_Bed).Count();
+			return pawn?.inventory?.innerContainer?.Where(t => t.GetInnerIfMinified() is Building_Bed).Count() ?? 0;
 		}
 	}
 }
