@@ -21,7 +21,10 @@ namespace UseBedrolls
 			List<Pawn> needPawns = caravanPawns.FindAll(p => p.CountBeds() == 0 && p.IsFreeColonist && p.inventory != null);
 			Log.Message("needPawns are " + needPawns.ToStringSafeEnumerable());
 
-			Predicate<Pawn> surplusFinder = p => p.CountBeds() > 1 || p.RaceProps.Animal;
+			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
+				int count = p.CountBeds();
+				return count > 1 || (p.RaceProps.Animal && count > 0);
+			};
 			List<Pawn> surplusPawns = caravanPawns.FindAll(surplusFinder);
 			surplusPawns.Sort((p1, p2) => p1.CountBeds().CompareTo(p2.CountBeds()));
 			Log.Message("surplusPawns are " + surplusPawns.ToStringSafeEnumerable());
