@@ -18,7 +18,7 @@ namespace UseBedrolls
 			Log.Message("Prefxing enter");
 			List<Pawn> caravanPawns = new List<Pawn>(caravan.PawnsListForReading);
 			Log.Message("pawns are " + caravanPawns.ToStringSafeEnumerable());
-			List<Pawn> needPawns = caravanPawns.FindAll(p => p.CountBeds() == 0 && p.IsFreeColonist);
+			List<Pawn> needPawns = caravanPawns.FindAll(p => p.CountBeds() == 0 && p.IsFreeColonist && p.inventory != null);
 			Log.Message("needPawns are " + needPawns.ToStringSafeEnumerable());
 
 			Predicate<Pawn> surplusFinder = p => p.CountBeds() > 1 || p.RaceProps.Animal;
