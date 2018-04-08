@@ -5,8 +5,8 @@
 		<xpath>Defs/ThingDef[defName="Bedroll" or defName="BedrollDouble"]</xpath>
 		<value>
 			<recipeMaker>
-				<workSpeedStat>ConstructionSpeed</workSpeedStat>
-				<workSkill>Construction</workSkill>
+				<workSpeedStat>TailoringSpeed</workSpeedStat>
+				<workSkill>Crafting</workSkill>
 				<effectWorking>Tailor</effectWorking>
 				<soundWorking>Recipe_Tailor</soundWorking>
 				<recipeUsers>
