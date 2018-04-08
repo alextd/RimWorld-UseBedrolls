@@ -40,18 +40,32 @@ namespace UseBedrolls
 			if (!pawn.IsColonistPlayerControlled) return fallbackJob;
 			Log.Message(pawn + " looking for inventory beds");
 
-			MinifiedThing invBed = (MinifiedThing)pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed bed && bed.def.building.bed_humanlike);
+			MinifiedThing invBed = (MinifiedThing)pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike);
 			if (invBed == null)	return fallbackJob;
 			Log.Message(pawn + " found " + invBed);
 
 			Map map = pawn.Map;
+			Building_Bed bed = (Building_Bed)invBed.GetInnerIfMinified();
 
-			Predicate<IntVec3> cellValidator = c =>
-				c.Standable(map) && !c.IsForbidden(pawn) && !c.GetTerrain(map).avoidWander
-				&& GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, Rot4.South, map).Accepted;
+			Func<IntVec3, Rot4, bool> cellValidatorDir = delegate (IntVec3 c, Rot4 direction)
+			{
+				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
+					return false;
 
+				for (CellRect.CellRectIterator iterator = GenAdj.OccupiedRect(c, direction, bed.def.size).GetIterator();
+						!iterator.Done(); iterator.MoveNext())
+					foreach (Thing t in iterator.Current.GetThingList(map))
+						if (!(t is Pawn) && GenConstruct.BlocksConstruction(bed, t))
+							return false;
+
+				return true;
+			};
+
+			// North/East would be redundant, except for cells on edge ; oh well, too much code to handle that
+			Predicate<IntVec3> cellValidator = c => cellValidatorDir(c, Rot4.South) || cellValidatorDir(c, Rot4.West);
+			
 			Predicate<IntVec3> goodCellValidator = c =>
-				cellValidator(c) && !RegionAndRoomQuery.RoomAt(c, map).PsychologicallyOutdoors;
+				!RegionAndRoomQuery.RoomAt(c, map).PsychologicallyOutdoors && cellValidator(c);
 
 			IntVec3 placePosition = IntVec3.Invalid;
 			IntVec3 root = pawn.Position;
@@ -63,14 +77,15 @@ namespace UseBedrolls
 
 			if (placePosition.IsValid)
 			{
-				Blueprint_Install blueprint = GenConstruct.PlaceBlueprintForInstall(invBed, placePosition, map, Rot4.South, pawn.Faction);
+				Rot4 dir = cellValidatorDir(placePosition, Rot4.South) ? Rot4.South : Rot4.West;
+				Blueprint_Install blueprint = GenConstruct.PlaceBlueprintForInstall(invBed, placePosition, map, dir, pawn.Faction);
 
 				Log.Message(pawn + " placing " + blueprint + " at " + placePosition);
 
 				return new Job(JobDefOf.PlaceBedroll, invBed, blueprint)
 				{
 					haulMode = HaulMode.ToContainer
-				};  //One assumes they will immediately use it.
+				};
 			}
 			Log.Message(pawn + " couldn't find place for " + invBed);
 
