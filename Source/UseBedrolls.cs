@@ -26,7 +26,7 @@ namespace UseBedrolls
 
 		// public override string SettingsCategory()
 		// {
-	  // return "UseBedrolls".Translate();
+	  // return "TD.UseBedrolls".Translate();
 		// }
 	}
 }
