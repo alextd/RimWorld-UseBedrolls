@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,6 +49,9 @@ namespace UseBedrolls
 
 			Func<IntVec3, Rot4, bool> cellValidatorDir = delegate (IntVec3 c, Rot4 direction)
 			{
+                if (RegionAndRoomQuery.RoomAtFast(c,map).isPrisonCell != pawn.IsPrisoner)
+                    return false;
+
 				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
 					return false;
 
