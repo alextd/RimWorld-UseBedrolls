@@ -27,7 +27,7 @@ namespace UseBedrolls
 			yield return Toils_Misc.TakeItemFromInventoryToCarrier(pawn, TargetIndex.A);
 			yield return Toils_Haul.CarryHauledThingToContainer();
 			yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
-			yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C);
+			//yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C);//1.0 game destroys minified thing, but its job still does Deposit?
 			Toil restInBed = new Toil();
 			restInBed.initAction = delegate
 			{
