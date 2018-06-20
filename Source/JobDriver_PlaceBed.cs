@@ -24,15 +24,14 @@ namespace UseBedrolls
 		protected override IEnumerable<Toil> MakeNewToils()
 		{
 			job.count = 1;
-			Thing bedroll = pawn.CurJob.targetA.Thing as Thing;
+			Thing bedroll = pawn.CurJob.targetA.Thing;
 
 			if (bedroll.Spawned)
 			{
-				Log.Message("Starting pickiup, standing at " + pawn.Position);
+				Log.Message(pawn + " needs to pick up " + bedroll);
 				yield return Toils_Reserve.Reserve(TargetIndex.A);
 				yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
 				yield return Toils_Haul.TakeToInventory(TargetIndex.A, 1);
-				Log.Message("Done pickup, standing at " + pawn.Position);
 			}
 			yield return Toils_Misc.TakeItemFromInventoryToCarrier(pawn, TargetIndex.A);
 			yield return Toils_Haul.CarryHauledThingToContainer();

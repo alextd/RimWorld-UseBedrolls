@@ -21,7 +21,7 @@ namespace UseBedrolls
 			bool foundNew = false;
 			foreach(CodeInstruction i in instructions)
 			{
-				//ldsfld	   class Verse.JobDef RimWorld.JobDefOf::LayDown
+				//ldsfld       class Verse.JobDef RimWorld.JobDefOf::LayDown
 				yield return i;
 				if (i.opcode == OpCodes.Newobj)
 				{
@@ -40,24 +40,8 @@ namespace UseBedrolls
 			if (!pawn.IsColonistPlayerControlled) return fallbackJob;
 			Log.Message(pawn + " looking for inventory beds");
 
-			Thing spare_bed = pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike);
-			if (spare_bed == null)
-			{
-				spare_bed = nearest_bed_laying_around(pawn);
-				if (spare_bed == null)
-				{
-					Pawn nearby_pawn = who_can_share_with(pawn);
-					if ((nearby_pawn != null))
-					{
-						spare_bed = nearby_pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike);
-						nearby_pawn.inventory.innerContainer.TryDrop(spare_bed, ThingPlaceMode.Near,out spare_bed);
-						Log.Message(nearby_pawn.Name + " dropped bed at " + spare_bed.Position);
-					}
-				}
-			};
-			MinifiedThing invBed = (MinifiedThing)spare_bed;
-			if (invBed==null)
-				return fallbackJob;
+			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
+			if (invBed == null)	return fallbackJob;
 			Log.Message(pawn + " found " + invBed);
 
 			Map map = pawn.Map;
@@ -111,47 +95,79 @@ namespace UseBedrolls
 			return fallbackJob;
 		}
 
-		private static Pawn who_can_share_with(Pawn sleepy_pawn)
+		public static Thing FindMinifiedBed(Pawn pawn)
 		{
-			List<Pawn> pawns = sleepy_pawn.Map.mapPawns.SpawnedPawnsInFaction(sleepy_pawn.Faction).ListFullCopy();
-			Log.Message("pawns are " + pawns.ToStringSafeEnumerable());
-			TraverseParms traverseParams = TraverseParms.For(sleepy_pawn, Danger.Deadly, TraverseMode.ByPawn, false);
-			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
-				int count = p.CountBeds();
-				Log.Message(p.Name + " has " + count + " beds");
-				if (((p.RaceProps.Animal || p.ownership.OwnedBed != null) && count > 0)
-					|| (count > 1))
-				{
-					Log.Message(p.Name + " has can spare some");
-					if (sleepy_pawn.Map.reachability.CanReach(sleepy_pawn.Position, p, PathEndMode.ClosestTouch, traverseParams))
-					{
-						Log.Message(sleepy_pawn.Name + " can reach " + p.Name);
-						return true;
-					}
-				}
-				return false;
-			};
-			List<Pawn> surplusPawns = pawns.FindAll(surplusFinder);
-			if (surplusPawns.NullOrEmpty())
-				return null;
-			Pawn generous_pawn = surplusPawns.MinBy(p => DistanceTo(p,sleepy_pawn));
-			Log.Message("surplusPawns are " + generous_pawn);
-			return generous_pawn;
+			//inventory bed
+			if (InventoryBed(pawn) is Thing invBed)
+				return invBed;
+
+			//minified bed laying around
+			if (GroundMinifedBed(pawn) is Thing groundBed)
+				return groundBed;
+
+			//bed on another pawn? last chance.
+			return SharedInventoryBed(pawn);
 		}
 
-		private static Thing nearest_bed_laying_around(Pawn sleepy_pawn)
+		public static Thing InventoryBed(Pawn pawn)
+		{
+			return pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike);
+		}
+
+		public static Thing GroundMinifedBed(Pawn sleepy_pawn)
 		{
 			Predicate<Thing> validator = delegate (Thing t)
-			 {
-				 return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike;
-			 };
+			{
+				return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike;
+			};
 			List<Thing> groundBeds = sleepy_pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.MinifiedThing).FindAll(t => validator(t));
 			if (groundBeds.NullOrEmpty())
 				return null;
 			return groundBeds.MinBy(t => DistanceTo(t, sleepy_pawn));
 		}
 
-		private static int DistanceTo(Thing t1, Thing t2)
+		public static Thing SharedInventoryBed(Pawn pawn)
+		{
+			Thing spareBed = null;
+			Pawn pawnWithSpareBed = PawnWithSpareBed(pawn);
+			if ((pawnWithSpareBed != null))
+			{
+				spareBed = InventoryBed(pawnWithSpareBed);
+				//dropping here is fine since this isn't a commanded job, shouldn't get multiple calls to TryGiveJob
+				pawnWithSpareBed.inventory.innerContainer.TryDrop(spareBed, ThingPlaceMode.Near, out spareBed);
+				Log.Message(pawnWithSpareBed + " dropped bed at " + spareBed.Position);
+			}
+			return spareBed;
+		}
+		public static Pawn PawnWithSpareBed(Pawn sleepyPawn)
+		{
+			TraverseParms traverseParams = TraverseParms.For(sleepyPawn, Danger.Deadly, TraverseMode.ByPawn, false);
+			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
+				int count = p.CountBeds();
+				Log.Message(p + " has " + count + " beds");
+				if (((p.RaceProps.Animal || p.ownership.OwnedBed != null) && count > 0)
+					|| (count > 1))
+				{
+					Log.Message(p + " has can spare some");
+					if (sleepyPawn.Map.reachability.CanReach(sleepyPawn.Position, p, PathEndMode.ClosestTouch, traverseParams))
+					{
+						Log.Message(sleepyPawn + " can reach " + p);
+						return true;
+					}
+				}
+				return false;
+			};
+			List<Pawn> surplusPawns = sleepyPawn.Map.mapPawns.SpawnedPawnsInFaction(sleepyPawn.Faction).FindAll(surplusFinder);
+			if (surplusPawns.NullOrEmpty())
+				return null;
+
+			Log.Message("surplusPawns are " + surplusPawns.ToStringSafeEnumerable());
+			Pawn generousPawn = surplusPawns.MinBy(p => DistanceTo(p,sleepyPawn));
+			Log.Message("generousPawn is " + generousPawn);
+			return generousPawn;
+		}
+
+		public static int DistanceTo(Thing t1, Thing t2)
 		{
 			return (t1.Position - t2.Position).LengthManhattan;
 		}
