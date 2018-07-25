@@ -17,7 +17,7 @@ namespace UseBedrolls
 
 	public class JobDriver_PlaceBedroll : JobDriver
 	{
-		public override bool TryMakePreToilReservations()
+		public override bool TryMakePreToilReservations(bool errorOnFailed)
 		{
 			return true;
 		}
