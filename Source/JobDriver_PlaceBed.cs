@@ -5,6 +5,7 @@ using System.Text;
 using Verse;
 using Verse.AI;
 using RimWorld;
+using Harmony;
 
 namespace UseBedrolls
 {
@@ -73,6 +74,22 @@ namespace UseBedrolls
 			pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds.Remove(pawn);
 			Thing minifiedThing = Building.Uninstall();
 			pawn.inventory.innerContainer.TryAdd(minifiedThing.SplitOff(1));
+		}
+	}
+	
+	[HarmonyPatch(typeof(GenConstruct), "BlocksConstruction")]
+	static class PawnBlockConstruction
+	{
+		static bool Prefix(ref bool __result, Thing t, Thing constructible)
+		{
+			if (t is Pawn && 
+				(constructible is Building_Bed || 
+				(constructible is Blueprint_Install b && b.MiniToInstallOrBuildingToReinstall.GetInnerIfMinified() is Building_Bed)))
+			{
+				__result = false;
+				return false;
+			}
+			return true;
 		}
 	}
 }
