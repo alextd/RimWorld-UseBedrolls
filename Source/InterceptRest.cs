@@ -145,8 +145,7 @@ namespace UseBedrolls
 			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
 				int count = p.CountBeds();
 				Log.Message(p + " has " + count + " beds");
-				if (((p.RaceProps.Animal || p.ownership.OwnedBed != null) && count > 0)
-					|| (count > 1))
+				if (count > 1 || (count > 0 && SingleInvBedIsSpare(p, sleepyPawn)))
 				{
 					Log.Message(p + " has can spare some");
 					if (sleepyPawn.Map.reachability.CanReach(sleepyPawn.Position, p, PathEndMode.ClosestTouch, traverseParams))
@@ -165,6 +164,11 @@ namespace UseBedrolls
 			Pawn generousPawn = surplusPawns.MinBy(p => DistanceTo(p,sleepyPawn));
 			Log.Message("generousPawn is " + generousPawn);
 			return generousPawn;
+		}
+
+		public static bool SingleInvBedIsSpare(Pawn p, Pawn sleepyPawn)
+		{
+			return p.RaceProps.Animal || p.ownership.OwnedBed != null || LovePartnerRelationUtility.LovePartnerRelationExists(sleepyPawn, p);
 		}
 
 		public static int DistanceTo(Thing t1, Thing t2)
