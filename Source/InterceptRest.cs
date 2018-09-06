@@ -118,7 +118,7 @@ namespace UseBedrolls
 		{
 			Predicate<Thing> validator = delegate (Thing t)
 			{
-				return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike;
+				return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike && sleepy_pawn.CanReserveAndReach(t, PathEndMode.ClosestTouch, Danger.None);
 			};
 			List<Thing> groundBeds = sleepy_pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.MinifiedThing).FindAll(t => validator(t));
 			if (groundBeds.NullOrEmpty())
