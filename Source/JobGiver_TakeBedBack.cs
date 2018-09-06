@@ -27,7 +27,8 @@ namespace UseBedrolls
 			if (placedBeds.TryGetValue(pawn, out Building_Bed bed))
 			{
 				Log.Message(pawn + " has bed " + bed);
-				return new Job(JobDefOf.TakeBedroll, bed);
+				if (pawn.CanReserve(bed))
+					return new Job(JobDefOf.TakeBedroll, bed);
 			}
 			Log.Message(pawn + " has no bed");
 
