@@ -14,34 +14,16 @@ namespace UseBedrolls
 	[HarmonyPatch(typeof(JobGiver_GetRest), "TryGiveJob")]
 	static class InterceptRest
 	{
-		static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		//protected override Job TryGiveJob(Pawn pawn)
+		public static void Postfix(ref Job __result, Pawn pawn)
 		{
-			MethodInfo FindBedrollJobInfo = AccessTools.Method(typeof(InterceptRest), nameof(InterceptRest.FindBedrollJob));
+			if (__result.targetA.HasThing) return;//Have a bed, no need to look
 
-			bool foundNew = false;
-			foreach(CodeInstruction i in instructions)
-			{
-				//ldsfld       class Verse.JobDef RimWorld.JobDefOf::LayDown
-				yield return i;
-				if (i.opcode == OpCodes.Newobj)
-				{
-					if (!foundNew) foundNew = true;
-					else
-					{
-						yield return new CodeInstruction(OpCodes.Ldarg_1);
-						yield return new CodeInstruction(OpCodes.Call, FindBedrollJobInfo);
-					}
-				}
-			}
-		}
-
-		static Job FindBedrollJob(Job fallbackJob, Pawn pawn)
-		{	
-			if (!pawn.IsColonistPlayerControlled) return fallbackJob;
+			if (!pawn.IsColonistPlayerControlled) return;
 			Log.Message(pawn + " looking for inventory beds");
 
 			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
-			if (invBed == null)	return fallbackJob;
+			if (invBed == null)	return ;
 			Log.Message(pawn + " found " + invBed);
 
 			Map map = pawn.Map;
@@ -85,14 +67,11 @@ namespace UseBedrolls
 
 				Log.Message(pawn + " placing " + blueprint + " at " + placePosition);
 
-				return new Job(JobDefOf.PlaceBedroll, invBed, blueprint)
+				__result = new Job(JobDefOf.PlaceBedroll, invBed, blueprint)
 				{
 					haulMode = HaulMode.ToContainer
 				};
 			}
-			Log.Message(pawn + " couldn't find place for " + invBed);
-
-			return fallbackJob;
 		}
 
 		public static Thing FindMinifiedBed(Pawn pawn)
