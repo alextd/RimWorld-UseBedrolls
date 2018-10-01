@@ -29,7 +29,7 @@ namespace UseBedrolls
 
 			if (bedroll.Spawned)
 			{
-				Log.Message(pawn + " needs to pick up " + bedroll);
+				Log.Message("{pawn} needs to pick up {bedroll}");
 				yield return Toils_Reserve.Reserve(TargetIndex.A);
 				yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
 				yield return Toils_Haul.TakeToInventory(TargetIndex.A, 1);

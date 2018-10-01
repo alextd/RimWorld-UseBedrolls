@@ -20,11 +20,11 @@ namespace UseBedrolls
 			if (__result.targetA.HasThing) return;//Have a bed, no need to look
 
 			if (!pawn.IsColonistPlayerControlled) return;
-			Log.Message(pawn + " looking for inventory beds");
+			Log.Message("{pawn} looking for inventory beds");
 
 			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
 			if (invBed == null)	return ;
-			Log.Message(pawn + " found " + invBed);
+			Log.Message("{pawn} found {invBed}");
 
 			Map map = pawn.Map;
 			Building_Bed bed = (Building_Bed)invBed.GetInnerIfMinified();
@@ -65,7 +65,7 @@ namespace UseBedrolls
 				Rot4 dir = cellValidatorDir(placePosition, Rot4.South) ? Rot4.South : Rot4.West;
 				Blueprint_Install blueprint = GenConstruct.PlaceBlueprintForInstall(invBed, placePosition, map, dir, pawn.Faction);
 
-				Log.Message(pawn + " placing " + blueprint + " at " + placePosition);
+				Log.Message("{pawn} placing {blueprint} at {placePosition}");
 
 				__result = new Job(JobDefOf.PlaceBedroll, invBed, blueprint)
 				{
@@ -114,7 +114,7 @@ namespace UseBedrolls
 				spareBed = InventoryBed(pawnWithSpareBed);
 				//dropping here is fine since this isn't a commanded job, shouldn't get multiple calls to TryGiveJob
 				pawnWithSpareBed.inventory.innerContainer.TryDrop(spareBed, ThingPlaceMode.Near, out spareBed);
-				Log.Message(pawnWithSpareBed + " dropped bed at " + spareBed.Position);
+				Log.Message("{pawnWithSpareBed} dropped bed at {spareBed.Position}");
 			}
 			return spareBed;
 		}
@@ -123,13 +123,13 @@ namespace UseBedrolls
 			TraverseParms traverseParams = TraverseParms.For(sleepyPawn, Danger.Deadly, TraverseMode.ByPawn, false);
 			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
 				int count = p.CountBeds();
-				Log.Message(p + " has " + count + " beds");
+				Log.Message("{p} has {count} beds");
 				if (count > 1 || (count > 0 && SingleInvBedIsSpare(p, sleepyPawn)))
 				{
-					Log.Message(p + " has can spare some");
+					Log.Message("{p} has can spare some");
 					if (sleepyPawn.Map.reachability.CanReach(sleepyPawn.Position, p, PathEndMode.ClosestTouch, traverseParams))
 					{
-						Log.Message(sleepyPawn + " can reach " + p);
+						Log.Message("{sleepyPawn} can reach {p}");
 						return true;
 					}
 				}
@@ -139,9 +139,9 @@ namespace UseBedrolls
 			if (surplusPawns.NullOrEmpty())
 				return null;
 
-			Log.Message("surplusPawns are " + surplusPawns.ToStringSafeEnumerable());
+			Log.Message($"surplusPawns are {surplusPawns.ToStringSafeEnumerable()}");
 			Pawn generousPawn = surplusPawns.MinBy(p => DistanceTo(p,sleepyPawn));
-			Log.Message("generousPawn is " + generousPawn);
+			Log.Message($"generousPawn is {generousPawn}");
 			return generousPawn;
 		}
 
