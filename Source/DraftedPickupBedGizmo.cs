@@ -27,7 +27,7 @@ namespace UseBedrolls
 				{
 					action = delegate () {
 						Job pickupJob = new Job(JobDefOf.TakeBedroll, placedBed);
-						__instance.jobs.StartJob(pickupJob);
+						__instance.jobs.StartJob(pickupJob, JobCondition.InterruptForced);
 					},
 					defaultLabel = "TD.PickBackUpBed".Translate(),
 					icon = ContentFinder<Texture2D>.Get("UI/Designators/Uninstall"),
