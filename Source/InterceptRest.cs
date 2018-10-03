@@ -93,16 +93,21 @@ namespace UseBedrolls
 			return SharedInventoryBed(pawn);
 		}
 
+		public static bool CaravanReserved(Pawn pawn, Thing bed)
+		{
+			return pawn.Map.lordManager.lords.Any(l => l.LordJob is LordJob_FormAndSendCaravan c && c.transferables.Any(t => t.things.Any(thing => thing == bed)));
+		}
+
 		public static Thing InventoryBed(Pawn pawn)
 		{
-			return pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike);
+			return pawn.inventory.innerContainer.FirstOrDefault(tmini => tmini.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike && !CaravanReserved(pawn, tmini));
 		}
 
 		public static Thing GroundMinifedBed(Pawn sleepy_pawn)
 		{
 			Predicate<Thing> validator = delegate (Thing t)
 			{
-				return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike && sleepy_pawn.CanReserveAndReach(t, PathEndMode.ClosestTouch, Danger.None);
+				return t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike && sleepy_pawn.CanReserveAndReach(t, PathEndMode.ClosestTouch, Danger.None) && !CaravanReserved(sleepy_pawn, t);
 			};
 			List<Thing> groundBeds = sleepy_pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.MinifiedThing).FindAll(t => validator(t));
 			if (groundBeds.NullOrEmpty())

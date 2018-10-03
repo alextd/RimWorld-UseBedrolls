@@ -45,7 +45,7 @@ namespace UseBedrolls
 
 		public static int CountBeds(this Pawn pawn)
 		{
-			return pawn?.inventory?.innerContainer?.Where(t => t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike).Count() ?? 0;
+			return pawn?.inventory?.innerContainer?.Where(t => t.GetInnerIfMinified() is Building_Bed b && b.def.building.bed_humanlike && !InterceptRest.CaravanReserved(pawn, t)).Count() ?? 0;
 		}
 	}
 }
