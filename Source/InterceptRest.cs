@@ -95,7 +95,7 @@ namespace UseBedrolls
 
 		public static bool CaravanReserved(Pawn pawn, Thing bed)
 		{
-			return pawn.Map.lordManager.lords.Any(l => l.LordJob is LordJob_FormAndSendCaravan c && c.transferables.Any(t => t.things.Any(thing => thing == bed)));
+			return pawn?.Map?.lordManager?.lords.Any(l => l.LordJob is LordJob_FormAndSendCaravan c && (c.transferables?.Any(t => t.things?.Any(thing => thing == bed) ?? false) ?? false)) ?? false;
 		}
 
 		public static Thing InventoryBed(Pawn pawn)
