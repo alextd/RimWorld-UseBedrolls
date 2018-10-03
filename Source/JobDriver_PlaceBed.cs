@@ -24,6 +24,17 @@ namespace UseBedrolls
 		}
 		protected override IEnumerable<Toil> MakeNewToils()
 		{
+			//Clean up any spare blueprints
+			AddFinishAction(delegate
+			{
+				Blueprint blueprint = TargetB.Thing as Blueprint;
+				if (!blueprint?.Destroyed ?? false)
+				{ 
+					Log.Message($"Cleaning up {blueprint}");
+					blueprint.Destroy(DestroyMode.Vanish);
+				}
+			});
+
 			job.count = 1;
 			Thing bedroll = pawn.CurJob.targetA.Thing;
 
