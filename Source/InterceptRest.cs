@@ -37,11 +37,16 @@ namespace UseBedrolls
 				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
 					return false;
 
+				//Each cell of bed:
 				for (CellRect.CellRectIterator iterator = GenAdj.OccupiedRect(c, direction, bed.def.size).GetIterator();
 						!iterator.Done(); iterator.MoveNext())
+				{
+					if (map.zoneManager.ZoneAt(c) != null)
+						return false;
 					foreach (Thing t in iterator.Current.GetThingList(map))
 						if (!(t is Pawn) && GenConstruct.BlocksConstruction(bed, t))
 							return false;
+				}
 
 				return true;
 			};
