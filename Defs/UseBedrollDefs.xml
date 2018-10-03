@@ -16,12 +16,15 @@
 		<casualInterruptible>true</casualInterruptible>
 		<suspendable>false</suspendable>
 	</JobDef>
-
+	
+	<!--
+	want this to be before lord it's picked up while forming caravan
 	<ThinkTreeDef>
 		<defName>TakeBedrollTree</defName>
 		<insertTag>Humanlike_PostDuty</insertTag>
 		<insertPriority>100</insertPriority>
 		<thinkRoot Class="UseBedrolls.JobGiver_TakeBedBack" />
 	</ThinkTreeDef>
+	-->
 	
 </Defs>
