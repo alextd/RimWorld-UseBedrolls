@@ -33,7 +33,7 @@ namespace UseBedrolls
 			Widgets.ThingIcon(rect, owner);
 
 			//Label
-			string label = "TD.CarriedBy".Translate(new string[] {owner.LabelShortCap});
+			string label = "TD.CarriedBy".Translate(owner.LabelShortCap);
 			float num = Text.CalcHeight(label, rect.width);
 			Rect rectLabel = new Rect(rect.x, rect.yMax - num + 12f, rect.width, num);
 			GUI.color = Color.white;
