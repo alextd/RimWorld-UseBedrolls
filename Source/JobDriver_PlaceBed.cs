@@ -94,6 +94,11 @@ namespace UseBedrolls
 			pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds.Remove(pawn);
 			Thing minifiedThing = Building.Uninstall();
 			pawn.inventory.innerContainer.TryAdd(minifiedThing.SplitOff(1));
+
+			if(HomeBedComp.Get().TryGetValue(pawn, out Building_Bed bed))
+			{
+				pawn.ownership.ClaimBedIfNonMedical(bed);
+			}
 		}
 	}
 	
