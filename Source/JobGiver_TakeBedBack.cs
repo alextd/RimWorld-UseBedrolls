@@ -20,17 +20,14 @@ namespace UseBedrolls
 		protected override Job TryGiveJob(Pawn pawn)
 		{
 			if (!pawn.IsColonistPlayerControlled) return null;
-
-			Log.Message($"{pawn} taking back bed?");
-
+			
 			var placedBeds = pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds;
 			if (placedBeds.TryGetValue(pawn, out Building_Bed bed))
 			{
-				Log.Message($"{pawn} has bed {bed}");
+				Log.Message($"{pawn} taking back bed {bed}");
 				if (pawn.CanReserve(bed))
 					return new Job(JobDefOf.TakeBedroll, bed);
 			}
-			Log.Message($"{pawn} has no bed");
 
 			return null;
 		}
