@@ -165,7 +165,7 @@ namespace UseBedrolls
 
 		public static bool SingleInvBedIsSpare(Pawn p, Pawn sleepyPawn)
 		{
-			return p.RaceProps.Animal || p.ownership.OwnedBed != null || LovePartnerRelationUtility.LovePartnerRelationExists(sleepyPawn, p);
+			return p.RaceProps.Animal || p.ownership?.OwnedBed != null || LovePartnerRelationUtility.LovePartnerRelationExists(sleepyPawn, p);
 		}
 
 		public static int DistanceTo(Thing t1, Thing t2)

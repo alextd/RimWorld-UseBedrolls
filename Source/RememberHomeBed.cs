@@ -36,12 +36,11 @@ namespace UseBedrolls
 		{
 			if (__instance.ownership?.OwnedBed is Building_Bed bed)
 			{
-				Pawn owner = (Pawn)AccessTools.Field(typeof(Pawn_Ownership), "pawn").GetValue(__instance.ownership);
-				if (owner.Map.IsPlayerHome)
+				if (__instance.Map?.IsPlayerHome ?? false)
 				{
-					HomeBedComp.Get()[owner] = bed;
+					HomeBedComp.Get()[__instance] = bed;
 
-					Log.Message($"Saving Home bed {bed} for {owner}");
+					Log.Message($"Saving Home bed {bed} for {__instance}");
 				}
 			}
 		}
@@ -55,14 +54,14 @@ namespace UseBedrolls
 		{
 			if (respawningAfterLoad) return;
 
-			if (map.IsPlayerHome)
+			if (map?.IsPlayerHome ?? false)
 			{
 				if (HomeBedComp.Get().TryGetValue(__instance, out Building_Bed homeBed) &&
-					homeBed.Map == map && 
+					homeBed?.Map == map &&
 					RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true))
 				{
 					Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
-					__instance.ownership.ClaimBedIfNonMedical(homeBed);
+					__instance.ownership?.ClaimBedIfNonMedical(homeBed);
 				}
 				Log.Message($"Removing Home beds for {__instance}");
 				HomeBedComp.Get().Remove(__instance);

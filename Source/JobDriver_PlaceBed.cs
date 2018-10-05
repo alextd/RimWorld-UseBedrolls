@@ -58,7 +58,7 @@ namespace UseBedrolls
 
 				pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds[pawn] = bed;
 
-				pawn.ownership.ClaimBedIfNonMedical(bed);
+				pawn.ownership?.ClaimBedIfNonMedical(bed);
 
 				Job restJob = new Job(RimWorld.JobDefOf.LayDown, TargetB);
 				pawn.jobs.StartJob(restJob, JobCondition.Succeeded);
@@ -97,7 +97,7 @@ namespace UseBedrolls
 
 			if(HomeBedComp.Get().TryGetValue(pawn, out Building_Bed bed))
 			{
-				pawn.ownership.ClaimBedIfNonMedical(bed);
+				pawn?.ownership?.ClaimBedIfNonMedical(bed);
 			}
 		}
 	}
