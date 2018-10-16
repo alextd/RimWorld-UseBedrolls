@@ -37,6 +37,13 @@ namespace UseBedrolls
 				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
 					return false;
 
+				//Support ReplaceStuff allowing blueprints over beds
+				if (EdificeBlocking(invBed.GetInnerIfMinified().def, c, direction, map))
+					return false;
+
+				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
+					return false;
+
 				//Each cell of bed:
 				for (CellRect.CellRectIterator iterator = GenAdj.OccupiedRect(c, direction, bed.def.size).GetIterator();
 						!iterator.Done(); iterator.MoveNext())
@@ -77,6 +84,15 @@ namespace UseBedrolls
 					haulMode = HaulMode.ToContainer
 				};
 			}
+		}
+
+		public static bool EdificeBlocking(BuildableDef entDef, IntVec3 center, Rot4 rot, Map map)
+		{
+			foreach(IntVec3 pos in GenAdj.OccupiedRect(center, rot, entDef.Size))
+				foreach (Thing t in pos.GetThingList(map))
+					if (t.def.IsEdifice())
+						return true;
+			return false;
 		}
 
 		public static Thing FindMinifiedBed(Pawn pawn)
