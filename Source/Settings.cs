@@ -21,10 +21,10 @@ namespace UseBedrolls
 			var options = new Listing_Standard();
 			options.Begin(wrect);
 
-			options.CheckboxLabeled("Use bedroll if too far from assigned bed", ref distanceCheck);
+			options.CheckboxLabeled("TD.SettingFarFromBed".Translate(), ref distanceCheck);
 			if (distanceCheck)
 			{
-				options.Label("Use inventory bedroll if assigned bed is at least this far away:" + $" {distance:0.}");
+				options.Label("TD.SettingFarFromBedAmount".Translate() + $" {distance:0.}");
 				distance = options.Slider(distance, 0, 300);
 			}
 
