@@ -17,7 +17,11 @@ namespace UseBedrolls
 		//protected override Job TryGiveJob(Pawn pawn)
 		public static void Postfix(ref Job __result, Pawn pawn)
 		{
-			if (__result.targetA.HasThing) return;//Have a bed, no need to look
+			if (__result.targetA.Thing is Building_Bed ownedBed)
+			{
+				if(!Settings.Get().distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Settings.Get().distance)
+					return;//Have a bed that close enough, no need to get from inventory
+			}
 
 			if (!pawn.IsColonistPlayerControlled) return;
 			Log.Message($"{pawn} looking for inventory beds");

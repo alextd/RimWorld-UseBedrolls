@@ -8,7 +8,8 @@ namespace UseBedrolls
 {
 	class Settings : ModSettings
 	{
-		public bool setting;
+		public bool distanceCheck = false;
+		public float distance = 100f;
 
 		public static Settings Get()
 		{
@@ -19,16 +20,21 @@ namespace UseBedrolls
 		{
 			var options = new Listing_Standard();
 			options.Begin(wrect);
-			
-			options.CheckboxLabeled("Sample setting", ref setting);
-			options.Gap();
+
+			options.CheckboxLabeled("Use bedroll if too far from assigned bed", ref distanceCheck);
+			if (distanceCheck)
+			{
+				options.Label("Use inventory bedroll if assigned bed is at least this far away:" + $" {distance:0.}");
+				distance = options.Slider(distance, 0, 300);
+			}
 
 			options.End();
 		}
 		
 		public override void ExposeData()
 		{
-			Scribe_Values.Look(ref setting, "setting", true);
+			Scribe_Values.Look(ref distanceCheck, "distanceCheck", true);
+			Scribe_Values.Look(ref distance, "distance", 100f);
 		}
 	}
 }
