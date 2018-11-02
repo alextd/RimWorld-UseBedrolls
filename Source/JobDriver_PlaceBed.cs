@@ -69,19 +69,6 @@ namespace UseBedrolls
 
 	public class JobDriver_TakeBedroll : JobDriver_Uninstall
 	{
-		/* Just use basegame uninstall. If this should change, it should go in building properties (1.0 update)
-     *<building>
-     *	<uninstallWork>5</uninstallWork>
-     *</building>
-		protected override float TotalNeededWork
-		{
-			get
-			{
-				return 5;
-			}
-		}
-		*/
-
 		public override void Notify_Starting()
 		{
 			base.Notify_Starting();
