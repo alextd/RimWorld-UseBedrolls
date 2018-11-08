@@ -82,7 +82,7 @@ namespace UseBedrolls
 			Thing minifiedThing = Building.Uninstall();
 			pawn.inventory.innerContainer.TryAdd(minifiedThing.SplitOff(1));
 
-			if(HomeBedComp.Get().TryGetValue(pawn, out Building_Bed bed))
+			if(HomeBedComp.Get(pawn, out Building_Bed bed))
 			{
 				pawn?.ownership?.ClaimBedIfNonMedical(bed);
 			}

@@ -12,9 +12,11 @@ namespace UseBedrolls
 	public class BedOwnerGizmo : Gizmo
 	{
 		public Pawn owner;
+		public string label;
 
-		public BedOwnerGizmo(Pawn o) : base()
+		public BedOwnerGizmo(Pawn o, string tag) : base()
 		{
+			label = tag.Translate(o.LabelShortCap);
 			owner = o;
 			order = -50f;
 		}
@@ -33,7 +35,6 @@ namespace UseBedrolls
 			Widgets.ThingIcon(rect, owner);
 
 			//Label
-			string label = "TD.CarriedBy".Translate(owner.LabelShortCap);
 			float num = Text.CalcHeight(label, rect.width);
 			Rect rectLabel = new Rect(rect.x, rect.yMax - num + 12f, rect.width, num);
 			GUI.color = Color.white;
@@ -48,7 +49,7 @@ namespace UseBedrolls
 
 
 	[HarmonyPatch(typeof(Building_Bed), "GetGizmos")]
-	class TempBedGizmo
+	class TravelerBedGizmo
 	{
 		//public override IEnumerable<Gizmo> GetGizmos()
 		public static void Postfix(ref IEnumerable<Gizmo> __result, Building_Bed __instance)
@@ -59,7 +60,7 @@ namespace UseBedrolls
 			if (owner != null)
 			{
 				List<Gizmo> result = __result.ToList();
-				result.Add(new BedOwnerGizmo(owner));
+				result.Add(new BedOwnerGizmo(owner, "TD.CarriedBy"));
 				__result = result;
 			}
 		}

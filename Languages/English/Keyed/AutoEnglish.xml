@@ -3,6 +3,7 @@
 	
 	<TD.UseBedrolls>Use Bedrolls</TD.UseBedrolls>
 	<TD.CarriedBy>Carried by {0}</TD.CarriedBy>
+	<TD.TravelerOwned>{0} on caravan</TD.TravelerOwned>
 	<TD.PickBackUpBed>Pick back up bed</TD.PickBackUpBed>
 	<TD.ExplainHomeBeds>Use Bedrolls will remember assigned beds in the caravan's home colony. By default, the unmodded game does keep the bed assigned to a traveler, but it is cleared when they use another bed. Use Bedrolls will reclaim their unclaimed bed when they return.</TD.ExplainHomeBeds>
 	<TD.SettingReclaimAggresively>Reclaim home beds even if they were claimed by someone else</TD.SettingReclaimAggresively>
