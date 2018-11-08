@@ -4,6 +4,8 @@
 	<TD.UseBedrolls>Use Bedrolls</TD.UseBedrolls>
 	<TD.CarriedBy>Carried by {0}</TD.CarriedBy>
 	<TD.PickBackUpBed>Pick back up bed</TD.PickBackUpBed>
+	<TD.SettingReclaimAggresively>Reclaim home beds even if they were claimed by someone else</TD.SettingReclaimAggresively>
+	<TD.SettingReclaimAggresivelyDesc>They do re-claim their home bed when they return to the colony, but only if the bed was unoccupied</TD.SettingReclaimAggresivelyDesc>
 	<TD.SettingFarFromBed>Use bedroll if too far from assigned bed</TD.SettingFarFromBed>
 	<TD.SettingFarFromBedAmount>Use inventory bedroll if assigned bed is at least this far away:</TD.SettingFarFromBedAmount>
 	

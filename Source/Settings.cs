@@ -8,6 +8,7 @@ namespace UseBedrolls
 {
 	class Settings : ModSettings
 	{
+		public bool reclaimAggresively = false;
 		public bool distanceCheck = false;
 		public float distance = 100f;
 
@@ -21,6 +22,7 @@ namespace UseBedrolls
 			var options = new Listing_Standard();
 			options.Begin(wrect);
 
+			options.CheckboxLabeled("TD.SettingReclaimAggresively".Translate(), ref reclaimAggresively);
 			options.CheckboxLabeled("TD.SettingFarFromBed".Translate(), ref distanceCheck);
 			if (distanceCheck)
 			{
@@ -33,6 +35,7 @@ namespace UseBedrolls
 		
 		public override void ExposeData()
 		{
+			Scribe_Values.Look(ref reclaimAggresively, "reclaimAggresively", false);
 			Scribe_Values.Look(ref distanceCheck, "distanceCheck", true);
 			Scribe_Values.Look(ref distance, "distance", 100f);
 		}

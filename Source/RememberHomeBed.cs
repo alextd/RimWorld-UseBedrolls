@@ -57,8 +57,8 @@ namespace UseBedrolls
 			if (map?.IsPlayerHome ?? false)
 			{
 				if (HomeBedComp.Get().TryGetValue(__instance, out Building_Bed homeBed) &&
-					homeBed?.Map == map &&
-					RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true))
+					homeBed?.Map == map && !homeBed.ForPrisoners &&
+					(Settings.Get().reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
 				{
 					Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
 					__instance.ownership?.ClaimBedIfNonMedical(homeBed);
