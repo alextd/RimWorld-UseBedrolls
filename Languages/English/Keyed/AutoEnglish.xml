@@ -5,11 +5,11 @@
 	<TD.CarriedBy>Carried by {0}</TD.CarriedBy>
 	<TD.TravelerOwned>{0} on caravan</TD.TravelerOwned>
 	<TD.PickBackUpBed>Pick back up bed</TD.PickBackUpBed>
-	<TD.ExplainHomeBeds>Use Bedrolls will remember assigned beds in the caravan's home colony. By default, the unmodded game does keep the bed assigned to a traveler, but it is cleared when they use another bed. Use Bedrolls will reclaim their unclaimed bed when they return.</TD.ExplainHomeBeds>
+	<TD.ExplainHomeBeds>Use Bedrolls will remember assigned beds in the caravan's home colony. By default, the unmodded game does keep the bed assigned to a traveler, but it is cleared when they use another bed. Use Bedrolls will reclaim their bed when they return, if it is still unassigned.</TD.ExplainHomeBeds>
 	<TD.SettingReclaimAggresively>Reclaim home beds even if they were claimed by someone else</TD.SettingReclaimAggresively>
 	<TD.SettingReclaimAggresivelyDesc>Obviously you can't claim beds that were made to be for medical or prisons</TD.SettingReclaimAggresivelyDesc>
-	<TD.SettingUnClaimOnExit>Unclaim beds when you exit the map</TD.SettingUnClaimOnExit>
-	<TD.SettingUnClaimOnExitDesc>An obvious choice when your caravan is forming a new colony - and not a problem anyway if you use the above option to reclaim </TD.SettingUnClaimOnExitDesc>
+	<TD.SettingUnAssignOnExit>Unassign beds when you exit the map</TD.SettingUnAssignOnExit>
+	<TD.SettingUnAssignOnExitDesc>An obvious choice when your caravan is forming a new colony - and not a problem anyway if you use the above option to reclaim</TD.SettingUnAssignOnExitDesc>
 	<TD.SettingFarFromBed>Use bedroll if too far from assigned bed</TD.SettingFarFromBed>
 	<TD.SettingFarFromBedAmount>Use inventory bedroll if assigned bed is at least this far away:</TD.SettingFarFromBedAmount>
 	

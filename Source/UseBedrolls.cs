@@ -10,8 +10,9 @@ namespace UseBedrolls
 	{
 		public Mod(ModContentPack content) : base(content)
 		{
+			TD.Utilities.HugsLibUpdateNews.MakeNews(this);
 			// initialize settings
-			 GetSettings<Settings>();
+			GetSettings<Settings>();
 #if DEBUG
 			HarmonyInstance.DEBUG = true;
 #endif

@@ -71,7 +71,7 @@ namespace UseBedrolls
 					Log.Message($"Saving Home bed {bed} for {__instance}");
 				}
 
-				if(Settings.Get().unclaimOnExit)
+				if(Settings.Get().unassignOnExit)
 				{
 					__instance.ownership.UnclaimBed();
 				}

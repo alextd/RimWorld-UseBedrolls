@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<News>
+	<li>
+		<assemblyVersion>1.0.0</assemblyVersion>
+		<content>- New option to use bedrolls if the assigned bed is too far away.
+- New option to re-claim home beds even when they were claimed by someone else.
+- When a caravan leaves the map, beds are unassigned (which is fine since they will be re-claimed when the caravan returns)
+|img:OnCaravanDemo|</content>
+		<linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1353625821</linkUrl>
+	</li>
+</News>
