@@ -62,6 +62,8 @@ namespace UseBedrolls
 	{
 		public static void Prefix(Pawn __instance)
 		{
+			if (!__instance.IsColonistPlayerControlled) return;
+
 			if (__instance.ownership?.OwnedBed is Building_Bed bed)
 			{
 				if (__instance.Map?.IsPlayerHome ?? false)
