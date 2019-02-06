@@ -35,7 +35,7 @@ namespace UseBedrolls
 				if (surplusPawns.Count == 0) return;
 				Pawn fromPawn = surplusPawns.First();
 				Log.Message($"Getting bed from {fromPawn}");
-				Thing bed = fromPawn.inventory.innerContainer.First(t => t.GetInnerIfMinified() is Building_Bed b && RestUtility.CanUseBedEver(fromPawn, b.def));
+				Thing bed = fromPawn.inventory.innerContainer.First(t => t.GetInnerIfMinified() is Building_Bed b && RestUtility.CanUseBedEver(fromPawn, b.def) && !b.Medical);
 				Log.Message($"Bed is {bed}");
 
 				fromPawn.inventory.innerContainer.TryTransferToContainer(bed, toPawn.inventory.innerContainer);
@@ -46,7 +46,7 @@ namespace UseBedrolls
 		public static int CountBeds(this Pawn pawn)
 		{
 			return pawn?.inventory?.innerContainer?
-				.Where(t => t.GetInnerIfMinified() is Building_Bed b && 
+				.Where(t => t.GetInnerIfMinified() is Building_Bed b && !b.Medical &&
 				RestUtility.CanUseBedEver(pawn, b.def) && 
 				!InterceptRest.CaravanReserved(pawn, t)).Count() ?? 0;
 		}
