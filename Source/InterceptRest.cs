@@ -24,7 +24,6 @@ namespace UseBedrolls
 			}
 
 			if (!pawn.IsColonistPlayerControlled) return;
-			Log.Message($"{pawn} looking for inventory beds");
 
 			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
 			if (invBed == null)	return ;
@@ -101,14 +100,17 @@ namespace UseBedrolls
 
 		public static Thing FindMinifiedBed(Pawn pawn)
 		{
+			Log.Message($"{pawn} looking for inventory beds");
 			//inventory bed
 			if (InventoryBed(pawn) is Thing invBed)
 				return invBed;
 
+			Log.Message($"{pawn} looking for ground beds");
 			//minified bed laying around
 			if (GroundMinifedBed(pawn) is Thing groundBed)
 				return groundBed;
 
+			Log.Message($"{pawn} looking for shared beds");
 			//bed on another pawn? last chance.
 			return SharedInventoryBed(pawn);
 		}
