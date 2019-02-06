@@ -116,7 +116,7 @@ namespace UseBedrolls
 		public static bool UseableBed(Thing miniThing, Pawn pawn)
 		{
 			return miniThing.GetInnerIfMinified() is Building_Bed b &&
-				b.def.building.bed_humanlike &&
+				RestUtility.CanUseBedEver(pawn, b.def) &&
 				!CaravanReserved(pawn, miniThing) &&
 				InstallBlueprintUtility.ExistingBlueprintFor(miniThing) == null;
 		}
