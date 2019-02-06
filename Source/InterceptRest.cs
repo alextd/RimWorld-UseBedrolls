@@ -61,14 +61,23 @@ namespace UseBedrolls
 				return true;
 			};
 
+			IntVec3 root = pawn.Position;
+
 			// North/East would be redundant, except for cells on edge ; oh well, too much code to handle that
-			Predicate<IntVec3> cellValidator = c => cellValidatorDir(c, Rot4.South) || cellValidatorDir(c, Rot4.West);
+			Predicate<IntVec3> cellValidator = delegate (IntVec3 c)
+			{
+				if (!cellValidatorDir(c, Rot4.South) && !cellValidatorDir(c, Rot4.West))
+					return false;
+				using (PawnPath path = map.pathFinder.FindPath(root, c, pawn))
+				{
+					return path.TotalCost < 500;
+				}
+			};
 			
 			Predicate<IntVec3> goodCellValidator = c =>
 				!RegionAndRoomQuery.RoomAt(c, map).PsychologicallyOutdoors && cellValidator(c);
 
 			IntVec3 placePosition = IntVec3.Invalid;
-			IntVec3 root = pawn.Position;
 			TraverseParms trav = TraverseParms.For(pawn);
 			if (!CellFinder.TryFindRandomReachableCellNear(root, map, 4, trav, goodCellValidator, null, out placePosition))
 				if (!CellFinder.TryFindRandomReachableCellNear(root, map, 12, trav, goodCellValidator, null, out placePosition))
