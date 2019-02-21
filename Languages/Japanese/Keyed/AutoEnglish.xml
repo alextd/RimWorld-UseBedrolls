@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <TD.UseBedrolls>Use Bedrolls</TD.UseBedrolls>
+  <TD.CarriedBy>{0}が運んでいる</TD.CarriedBy>
+  <TD.TravelerOwned>キャラバン隊の{0}</TD.TravelerOwned>
+  <TD.PickBackUpBed>ベッドを拾う</TD.PickBackUpBed>
+  <TD.ExplainHomeBeds>このMod「Use Bedrolls」はキャラバン隊が出たコロニーで割り当てられていたベッドを記憶しています。Modを使用していないバニラのゲームでは、ベッドを旅行者に割り当てたままにしますが、別のベッドを使用するとその情報はクリアされます。まだコロニー内で割り当てられていない場合にベッドロールを使用して、そのままコロニーに戻ったときは、まだ誰にも割り当てられていないベッドを利用します。</TD.ExplainHomeBeds>
+  <TD.SettingReclaimAggresively>たとえコロニーで他の誰かに割り当てられていたとしても、自分に割り当てられていたコロニー内のベッドを再利用します</TD.SettingReclaimAggresively>
+  <TD.SettingReclaimAggresivelyDesc>確実にあなたは医療用か囚人用に割り当てられたベッドに対してベッド使用権利を請求できません。</TD.SettingReclaimAggresivelyDesc>
+  <TD.SettingUnAssignOnExit>マップを出るときにベッドの割り当てを解除する</TD.SettingUnAssignOnExit>
+  <TD.SettingUnAssignOnExitDesc>あなたのキャラバン隊が新しいコロニーを形成している場合に明確な選択肢－上記のオプションを使用して再割り当てしても問題ありません</TD.SettingUnAssignOnExitDesc>
+  <TD.SettingFarFromBed>割り当てられたベッドが遠い場合に寝袋を使用する</TD.SettingFarFromBed>
+  <TD.SettingFarFromBedAmount>割り当てられたベッドが少なくともこの値以上離れている場合は、在庫の寝袋を使用する：</TD.SettingFarFromBedAmount>
+
+</LanguageData>
