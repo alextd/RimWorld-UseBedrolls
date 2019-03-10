@@ -21,7 +21,9 @@ namespace UseBedrolls
 		{
 			base.ExposeData();
 			Scribe_Collections.Look(ref homeBeds, "homeBeds", LookMode.Reference, LookMode.Reference);
-			if(Scribe.mode == LoadSaveMode.PostLoadInit)
+			homeBeds.RemoveAll(kvp => kvp.Key == null || kvp.Value == null);
+
+			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
 				foreach (var kvp in homeBeds)
 					bedOwners[kvp.Value] = kvp.Key;
@@ -53,6 +55,24 @@ namespace UseBedrolls
 			if (comp.homeBeds.TryGetValue(pawn, out Building_Bed bed))
 				comp.bedOwners.Remove(bed);
 			comp.homeBeds.Remove(pawn);
+		}
+
+		public static void Remove(Building_Bed bed)
+		{
+			var comp = Current.Game.GetComponent<HomeBedComp>();
+			if (comp.bedOwners.TryGetValue(bed, out Pawn pawn))
+				comp.homeBeds.Remove(pawn);
+			comp.bedOwners.Remove(bed);
+		}
+	}
+
+	[HarmonyPatch(typeof(Building_Bed), "DeSpawn")]
+	public static class BedDeSpawnRemove
+	{
+		public static void Prefix(Building_Bed __instance)
+		{
+			Log.Message($"Removing {__instance}");
+			HomeBedComp.Remove(__instance);
 		}
 	}
 
