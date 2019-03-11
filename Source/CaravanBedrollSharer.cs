@@ -39,9 +39,7 @@ namespace UseBedrolls
 				Pawn fromPawn = surplusPawns.First();
 				Log.Message($"Getting bed from {fromPawn}");
 				Thing bed = fromPawn.inventory.innerContainer
-					.First(t => t.GetInnerIfMinified() is Building_Bed b && 
-					RestUtility.CanUseBedEver(fromPawn, b.def) && 
-					!b.def.building.bed_defaultMedical);
+					.First(t => InterceptRest.UseableBed(t, colonist));
 				Log.Message($"Bed is {bed}");
 
 				fromPawn.inventory.innerContainer.TryTransferToContainer(bed, toPawn.inventory.innerContainer);
