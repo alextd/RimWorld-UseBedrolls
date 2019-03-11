@@ -126,10 +126,17 @@ namespace UseBedrolls
 
 		public static bool UseableBed(Thing miniThing, Pawn pawn)
 		{
-			return miniThing.GetInnerIfMinified() is Building_Bed b && !b.def.building.bed_defaultMedical &&
+			return miniThing.GetInnerIfMinified() is Building_Bed b && 
+				!b.def.building.bed_defaultMedical &&
 				RestUtility.CanUseBedEver(pawn, b.def) &&
 				!CaravanReserved(pawn, miniThing) &&
 				InstallBlueprintUtility.ExistingBlueprintFor(miniThing) == null;
+		}
+
+		public static int CountBedsFor(this Pawn pawn, Pawn sleeper)
+		{
+			return pawn?.inventory?.innerContainer?
+				.Where(t => UseableBed(t, sleeper)).Count() ?? 0;
 		}
 
 		public static bool CaravanReserved(Pawn pawn, Thing bed)
@@ -137,9 +144,9 @@ namespace UseBedrolls
 			return pawn?.Map?.lordManager?.lords.Any(l => l.LordJob is LordJob_FormAndSendCaravan c && (c.transferables?.Any(t => t.things?.Any(thing => thing == bed) ?? false) ?? false)) ?? false;
 		}
 
-		public static Thing InventoryBed(Pawn pawn)
+		public static Thing InventoryBed(Pawn pawn, Pawn sleeper = null)
 		{
-			return pawn.inventory.innerContainer.FirstOrDefault(tmini => UseableBed(tmini, pawn));
+			return pawn.inventory.innerContainer.FirstOrDefault(tmini => UseableBed(tmini, sleeper ?? pawn));
 		}
 
 		public static Thing GroundMinifedBed(Pawn sleepy_pawn)
@@ -160,10 +167,10 @@ namespace UseBedrolls
 			Pawn pawnWithSpareBed = PawnWithSpareBed(pawn);
 			if ((pawnWithSpareBed != null))
 			{
-				spareBed = InventoryBed(pawnWithSpareBed);
+				spareBed = InventoryBed(pawnWithSpareBed, pawn);
+				Log.Message($"{pawnWithSpareBed} dropping bed {spareBed}");
 				//dropping here is fine since this isn't a commanded job, shouldn't get multiple calls to TryGiveJob
 				pawnWithSpareBed.inventory.innerContainer.TryDrop(spareBed, ThingPlaceMode.Near, out spareBed);
-				Log.Message($"{pawnWithSpareBed} dropped bed at {spareBed.Position}");
 			}
 			return spareBed;
 		}
@@ -171,7 +178,7 @@ namespace UseBedrolls
 		{
 			TraverseParms traverseParams = TraverseParms.For(sleepyPawn, Danger.Deadly, TraverseMode.ByPawn, false);
 			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
-				int count = p.CountBeds();
+				int count = p.CountBedsFor(sleepyPawn);
 				Log.Message($"{p} has {count} beds");
 				if (count > 1 || (count > 0 && SingleInvBedIsSpare(p, sleepyPawn)))
 				{

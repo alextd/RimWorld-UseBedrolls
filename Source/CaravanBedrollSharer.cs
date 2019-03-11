@@ -15,18 +15,21 @@ namespace UseBedrolls
 		//public static void Enter(Caravan caravan, Map map, Func<Pawn, IntVec3> spawnCellGetter, CaravanDropInventoryMode dropInventoryMode = CaravanDropInventoryMode.DoNotDrop, bool draftColonists = false)
 		public static void Prefix(Caravan caravan)
 		{
+			Pawn colonist = caravan.PawnsListForReading.FirstOrDefault(p => p.IsFreeColonist);
+			if (colonist == null) return;	//I don't know about this, caravans need at least one pawn, right?
+
 			Log.Message($"Prefxing enter");
 			List<Pawn> caravanPawns = new List<Pawn>(caravan.PawnsListForReading);
 			Log.Message($"pawns are {caravanPawns.ToStringSafeEnumerable()}");
-			List<Pawn> needPawns = caravanPawns.FindAll(p => p.CountBeds() == 0 && p.IsFreeColonist && p.inventory != null);
+			List<Pawn> needPawns = caravanPawns.FindAll(p => p.IsFreeColonist && p.CountBedsFor(colonist) == 0 && p.inventory != null);
 			Log.Message($"needPawns are {needPawns.ToStringSafeEnumerable()}");
 
 			Predicate<Pawn> surplusFinder = delegate (Pawn p) {
-				int count = p.CountBeds();
+				int count = p.CountBedsFor(colonist);
 				return count > 1 || (p.RaceProps.Animal && count > 0);
 			};
 			List<Pawn> surplusPawns = caravanPawns.FindAll(surplusFinder);
-			surplusPawns.Sort((p1, p2) => p1.CountBeds().CompareTo(p2.CountBeds()));
+			surplusPawns.Sort((p1, p2) => p1.CountBedsFor(colonist).CompareTo(p2.CountBedsFor(colonist)));
 			Log.Message($"surplusPawns are {surplusPawns.ToStringSafeEnumerable()}");
 
 			foreach (Pawn toPawn in needPawns)
@@ -44,15 +47,6 @@ namespace UseBedrolls
 				fromPawn.inventory.innerContainer.TryTransferToContainer(bed, toPawn.inventory.innerContainer);
 				if (!surplusFinder(fromPawn)) surplusPawns.RemoveAt(0);
 			}
-		}
-
-		public static int CountBeds(this Pawn pawn)
-		{
-			return pawn?.inventory?.innerContainer?
-				.Where(t => t.GetInnerIfMinified() is Building_Bed b &&
-				!b.def.building.bed_defaultMedical &&
-				RestUtility.CanUseBedEver(pawn, b.def) && 
-				!InterceptRest.CaravanReserved(pawn, t)).Count() ?? 0;
 		}
 	}
 }
