@@ -17,6 +17,8 @@ namespace UseBedrolls
 		//protected override Job TryGiveJob(Pawn pawn)
 		public static void Postfix(ref Job __result, Pawn pawn)
 		{
+			if (__result == null) return;
+
 			if (__result.targetA.Thing is Building_Bed ownedBed)
 			{
 				if(!Settings.Get().distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Settings.Get().distance)
