@@ -19,6 +19,10 @@ namespace UseBedrolls
 		{
 			if (__result == null) return;
 
+			Map map = pawn.Map;
+			if (!Settings.Get().alsoColonies && pawn.Map.IsPlayerHome)
+				return;
+
 			if (__result.targetA.Thing is Building_Bed ownedBed)
 			{
 				if(!Settings.Get().distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Settings.Get().distance)
@@ -30,8 +34,6 @@ namespace UseBedrolls
 			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
 			if (invBed == null)	return ;
 			Log.Message($"{pawn} found {invBed}");
-
-			Map map = pawn.Map;
 			Building_Bed bed = (Building_Bed)invBed.GetInnerIfMinified();
 
 			Func<IntVec3, Rot4, bool> cellValidatorDir = delegate (IntVec3 c, Rot4 direction)

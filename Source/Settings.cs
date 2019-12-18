@@ -11,6 +11,7 @@ namespace UseBedrolls
 		public bool reclaimAggresively = false;
 		public bool unassignOnExit = true;
 		public bool distanceCheck = false;
+		public bool alsoColonies = false;
 		public float distance = 100f;
 
 		public static Settings Get()
@@ -34,6 +35,7 @@ namespace UseBedrolls
 				options.Label("TD.SettingFarFromBedAmount".Translate() + $" {distance:0.}");
 				distance = options.Slider(distance, 0, 300);
 			}
+			options.CheckboxLabeled("TD.SettingAlsoColonies".Translate(), ref alsoColonies, "TD.SettingAlsoColoniesDesc".Translate());
 
 			options.End();
 		}
@@ -43,6 +45,7 @@ namespace UseBedrolls
 			Scribe_Values.Look(ref reclaimAggresively, "reclaimAggresively", false);
 			Scribe_Values.Look(ref unassignOnExit, "unassignOnExit", true);
 			Scribe_Values.Look(ref distanceCheck, "distanceCheck", true);
+			Scribe_Values.Look(ref alsoColonies, "alsoColonies", false);
 			Scribe_Values.Look(ref distance, "distance", 100f);
 		}
 	}
