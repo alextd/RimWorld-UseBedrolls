@@ -46,7 +46,7 @@ namespace UseBedrolls
 		{
 			Scribe_Values.Look(ref reclaimAggresively, "reclaimAggresively", false);
 			Scribe_Values.Look(ref unassignOnExit, "unassignOnExit", true);
-			Scribe_Values.Look(ref distanceCheck, "distanceCheck", true);
+			Scribe_Values.Look(ref distanceCheck, "distanceCheck", false);
 			Scribe_Values.Look(ref alsoColonies, "alsoColonies", false);
 			Scribe_Values.Look(ref alsoColoniesKnown, "alsoColoniesKnown", false);//If loaded from settings, previous user so needs to be told this.
 			Scribe_Values.Look(ref distance, "distance", 100f);
