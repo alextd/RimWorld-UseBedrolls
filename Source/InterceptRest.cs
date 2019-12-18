@@ -21,7 +21,17 @@ namespace UseBedrolls
 
 			Map map = pawn.Map;
 			if (!Settings.Get().alsoColonies && pawn.Map.IsPlayerHome)
+			{
+				if(!Settings.Get().alsoColoniesKnown)
+				{
+					Settings.Get().alsoColoniesKnown = true;
+					Find.WindowStack.Add(new Dialog_MessageBox(
+						$"Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off so {pawn.Name} is not looking for beds right now.",
+						title:"Use Bedrolls updated"));
+					// I don't think this really needs to be 
+				}
 				return;
+			}
 
 			if (__result.targetA.Thing is Building_Bed ownedBed)
 			{
