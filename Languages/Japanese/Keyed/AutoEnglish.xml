@@ -12,5 +12,7 @@
   <TD.SettingUnAssignOnExitDesc>あなたのキャラバン隊が新しいコロニーを形成している場合に明確な選択肢－上記のオプションを使用して再割り当てしても問題ありません</TD.SettingUnAssignOnExitDesc>
   <TD.SettingFarFromBed>割り当てられたベッドが遠い場合に寝袋を使用する</TD.SettingFarFromBed>
   <TD.SettingFarFromBedAmount>割り当てられたベッドが少なくともこの値以上離れている場合は、在庫の寝袋を使用する：</TD.SettingFarFromBedAmount>
+  <TD.SettingAlsoColonies>コロニーマップでも寝袋を使用する</TD.SettingAlsoColonies>
+  <TD.SettingAlsoColoniesDesc>このMODは本来はキャラバン隊で寝袋を使うことを想定していますが、コロニーマップでも同じように機能できます。通常なら既にベッドを入植者に割り当てられていますが、寝袋が使用できなくなるのは作者の意図ではありませんでした。設定のデフォルトではオフになっていますが、必ず使用するようにオンにすることもできます。</TD.SettingAlsoColoniesDesc>
 
 </LanguageData>
