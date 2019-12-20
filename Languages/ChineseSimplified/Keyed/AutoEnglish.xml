@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <TD.UseBedrolls>Use Bedrolls(智能睡袋)</TD.UseBedrolls>
+  <TD.CarriedBy>已携带 {0}</TD.CarriedBy>
+  <TD.TravelerOwned>{0} 在远征队内</TD.TravelerOwned>
+  <TD.PickBackUpBed>拾取睡袋(床)</TD.PickBackUpBed>
+  <TD.ExplainHomeBeds>殖民者处于远征时，Mod会记住远征中殖民者的在基地内的床。正常情况下，未使用Mod时游戏在远征殖民者使用另一张床时会清除基地内原本属于他的床。但在使用MOD后，远征殖民者回来后若原属床位属于未分配状态，将重新指定为原来的殖民者。</TD.ExplainHomeBeds>
+  <TD.SettingReclaimAggresively>启用该项后，远征回来后即使原有床已分配给其他人，依旧拿回归属权。</TD.SettingReclaimAggresively>
+  <TD.SettingReclaimAggresivelyDesc>显然，你不能取回已被分配为医疗及囚犯的床。</TD.SettingReclaimAggresivelyDesc>
+  <TD.SettingUnAssignOnExit>退出地图时取消分配床位</TD.SettingUnAssignOnExit>
+  <TD.SettingUnAssignOnExitDesc>一个显而易见的选择是，当你的远征队建立一个新的殖民地时。如果你使用上面的选项来收回指定床位，也是可以的。</TD.SettingUnAssignOnExitDesc>
+  <TD.SettingFarFromBed>距离指定床位过远时使用睡袋</TD.SettingFarFromBed>
+  <TD.SettingFarFromBedAmount>当指定床位超过设定距离，使用空余床位:</TD.SettingFarFromBedAmount>
+  <TD.SettingAlsoColonies>智能睡袋在基地生效</TD.SettingAlsoColonies>
+  <TD.SettingAlsoColoniesDesc>该Mod本意是用于远征队，但在基地中功能同样生效，尽管你早已习惯手动分配了床铺，但该功能并非想接管你分配床铺的权利，因此默认关闭，但我认为你可以放心启用</TD.SettingAlsoColoniesDesc>
+
+
+</LanguageData>
