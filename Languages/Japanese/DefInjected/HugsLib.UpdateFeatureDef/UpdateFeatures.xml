@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <UseBedrolls1_0_0.modNameReadable>Use Bedrolls</UseBedrolls1_0_0.modNameReadable>
+  <UseBedrolls1_0_0.content>v1.0.0\n\n・割り当てられたベッドが遠すぎる場合に寝袋を使用する新しいオプション。\n・たとえそれが他の誰かに割り当てられたときでも、自分のベッドを再び主張\n　するための新しいオプション。\n・キャラバン隊がコロニーのマップを離脱した際、ベッドは未割当になります\n（キャラバン隊が戻った時は自動的にベッドが再び割り当てられて問題ありません）\n\nv1.1.0\nコロニーマップで寝袋を使用するための新しいMod設定（デフォルトではオフ）\nコロニーマップで寝袋を誰かに使用させたい場合は、新しい設定に関する\n小さなメッセージがポップします。\n|img:OnCaravanDemo|</UseBedrolls1_0_0.content>
+
+</LanguageData>
