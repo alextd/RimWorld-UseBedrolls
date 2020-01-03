@@ -13,7 +13,8 @@
 	<TD.SettingFarFromBed>Use bedroll if too far from assigned bed</TD.SettingFarFromBed>
 	<TD.SettingFarFromBedAmount>Use inventory bedroll if assigned bed is at least this far away:</TD.SettingFarFromBedAmount>
 	<TD.SettingAlsoColonies>Use bedrolls on colony maps</TD.SettingAlsoColonies>
-	<TD.SettingAlsoColoniesDesc>This mod is really supposed to be used for caravans, but it works on home maps all the same, but you usually already have assigned beds, but that wasn't the intention anyway so it's off by default, but sure you can turn it on I guess</TD.SettingAlsoColoniesDesc>
+	<TD.SettingAlsoColoniesDesc>This mod is really supposed to be used for caravans, but it works on home maps all the same, but you usually already have assigned beds, but that wasn't the intention anyway so it's off by default, but sure you can turn it on I guess</TD.SettingAlsoColoniesDesc>	<TD.UseBedrollsUpdated>Use Bedrolls updated</TD.UseBedrollsUpdated>
+	<TD.UpdateNewsColonyMaps>Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off, so {0} is not looking for uninstalled beds right now.</TD.UpdateNewsColonyMaps>
 
 
 </LanguageData>

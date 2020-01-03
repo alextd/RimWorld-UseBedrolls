@@ -26,8 +26,8 @@ namespace UseBedrolls
 				{
 					Settings.Get().alsoColoniesKnown = true;
 					Settings.Get().Write();
-					Find.LetterStack.ReceiveLetter("Use Bedrolls updated",
-						$"Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off, so {pawn.Name} is not looking for uninstalled beds right now.",
+					Find.LetterStack.ReceiveLetter("TD.UseBedrollsUpdated".Translate(),
+						TranslatorFormattedStringExtensions.Translate("TD.UpdateNewsColonyMaps", pawn),
 						LetterDefOf.NeutralEvent, pawn);
 					// I don't think this really needs to be hugslibs update news or anything. alsoColoniesKnown defaults
 				}
