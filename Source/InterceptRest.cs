@@ -20,15 +20,15 @@ namespace UseBedrolls
 			if (__result == null) return;
 
 			Map map = pawn.Map;
-			if (!Settings.Get().alsoColonies && pawn.Map.IsPlayerHome)
+			if (!Settings.Get().alsoColonies && map.IsPlayerHome)
 			{
 				if(!Settings.Get().alsoColoniesKnown)
 				{
 					Settings.Get().alsoColoniesKnown = true;
-					Find.WindowStack.Add(new Dialog_MessageBox(
-						$"Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off so {pawn.Name} is not looking for beds right now.",
-						title:"Use Bedrolls updated"));
-					// I don't think this really needs to be 
+					Find.LetterStack.ReceiveLetter("Use Bedrolls updated",
+						$"Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off, so {pawn.Name} is not looking for uninstalled beds right now.",
+						LetterDefOf.NeutralEvent, pawn);
+					// I don't think this really needs to be hugslibs update news or anything. alsoColoniesKnown defaults
 				}
 				return;
 			}
