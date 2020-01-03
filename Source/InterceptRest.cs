@@ -25,6 +25,7 @@ namespace UseBedrolls
 				if(!Settings.Get().alsoColoniesKnown)
 				{
 					Settings.Get().alsoColoniesKnown = true;
+					Settings.Get().Write();
 					Find.LetterStack.ReceiveLetter("Use Bedrolls updated",
 						$"Hey! Quick note. There's a new setting to use bedrolls on colony maps - it defaults off, so {pawn.Name} is not looking for uninstalled beds right now.",
 						LetterDefOf.NeutralEvent, pawn);
