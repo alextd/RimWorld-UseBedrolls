@@ -14,6 +14,7 @@
   <TD.SettingFarFromBedAmount>当指定床位超过设定距离，使用空余床位:</TD.SettingFarFromBedAmount>
   <TD.SettingAlsoColonies>智能睡袋在基地生效</TD.SettingAlsoColonies>
   <TD.SettingAlsoColoniesDesc>该Mod本意是用于远征队，但在基地中功能同样生效，尽管你早已习惯手动分配了床铺，但该功能并非想接管你分配床铺的权利，因此默认关闭，但我认为你可以放心启用</TD.SettingAlsoColoniesDesc>
-
+  <TD.UseBedrollsUpdated>已更新智能睡袋</TD.UseBedrollsUpdated>
+  <TD.UpdateNewsColonyMaps>嘿！小提示。智能睡袋为殖民地添加了新选项——该功能默认是关闭的，因此 {0} 现在不会再搜索未安装的床了。</TD.UpdateNewsColonyMaps>
 
 </LanguageData>
