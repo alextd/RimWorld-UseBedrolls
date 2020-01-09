@@ -76,7 +76,7 @@ namespace UseBedrolls
 				return true;
 			};
 
-			IntVec3 root = pawn.Position;
+			IntVec3 root = invBed.PositionHeld;
 
 			// North/East would be redundant, except for cells on edge ; oh well, too much code to handle that
 			Predicate<IntVec3> cellValidator = delegate (IntVec3 c)
