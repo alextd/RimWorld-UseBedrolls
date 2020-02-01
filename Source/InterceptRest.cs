@@ -19,6 +19,8 @@ namespace UseBedrolls
 		{
 			if (__result == null) return;
 
+			if (!pawn.IsColonistPlayerControlled) return;
+
 			Map map = pawn.Map;
 			if (!Settings.Get().alsoColonies && map.IsPlayerHome)
 			{
@@ -39,8 +41,6 @@ namespace UseBedrolls
 				if(!Settings.Get().distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Settings.Get().distance)
 					return;//Have a bed that close enough, no need to get from inventory
 			}
-
-			if (!pawn.IsColonistPlayerControlled) return;
 
 			MinifiedThing invBed = (MinifiedThing)FindMinifiedBed(pawn);
 			if (invBed == null)	return ;
