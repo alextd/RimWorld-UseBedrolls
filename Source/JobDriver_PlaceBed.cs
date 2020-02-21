@@ -5,7 +5,7 @@ using System.Text;
 using Verse;
 using Verse.AI;
 using RimWorld;
-using Harmony;
+using HarmonyLib;
 
 namespace UseBedrolls
 {
