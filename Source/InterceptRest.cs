@@ -63,12 +63,11 @@ namespace UseBedrolls
 					return false;
 
 				//Each cell of bed:
-				for (CellRect.CellRectIterator iterator = GenAdj.OccupiedRect(c, direction, bed.def.size).GetIterator();
-						!iterator.Done(); iterator.MoveNext())
+				foreach(var pos in GenAdj.OccupiedRect(c, direction, bed.def.size))
 				{
-					if (map.zoneManager.ZoneAt(iterator.Current) != null)
+					if (map.zoneManager.ZoneAt(pos) != null)
 						return false;
-					foreach (Thing t in iterator.Current.GetThingList(map))
+					foreach (Thing t in pos.GetThingList(map))
 						if (!(t is Pawn) && GenConstruct.BlocksConstruction(bed, t))
 							return false;
 				}
