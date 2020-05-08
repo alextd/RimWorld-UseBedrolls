@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
   <TD.UseBedrolls>Use Bedrolls</TD.UseBedrolls>
@@ -12,6 +12,8 @@
   <TD.SettingUnAssignOnExitDesc>あなたのキャラバン隊が新しいコロニーを形成している場合に明確な選択肢－上記のオプションを使用して再割り当てしても問題ありません</TD.SettingUnAssignOnExitDesc>
   <TD.SettingFarFromBed>割り当てられたベッドが遠い場合に寝袋を使用する</TD.SettingFarFromBed>
   <TD.SettingFarFromBedAmount>割り当てられたベッドが少なくともこの値以上離れている場合は、在庫の寝袋を使用する：</TD.SettingFarFromBedAmount>
+  <TD.SettingAlsoColonies>コロニーマップでも寝袋を使用</TD.SettingAlsoColonies>
+  <TD.SettingAlsoColoniesDesc>このModは本来はキャラバンで使う前提ですが、コロニーマップでも同じように使用可能です。しかし、普通は既にベッドを割り当てられているので、デフォルトではオフになっています。ただし、オンに切替えても問題ありません。</TD.SettingAlsoColoniesDesc>
   <TD.UseBedrollsUpdated>UseBedrollsが更新</TD.UseBedrollsUpdated>
   <TD.UpdateNewsColonyMaps>ハーイ！概略です。コロニーマップでベッドロールを使用するための新しい設定があります-デフォルトではオフになっているために、現在{0}は梱包されたベッドロールを探してうろうろしません。</TD.UpdateNewsColonyMaps>
 
