@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	
+	<TD.UseBedrolls>Utiliser les sacs de couchage</TD.UseBedrolls>
+	<TD.CarriedBy>Porté par {0}</TD.CarriedBy>
+	<TD.TravelerOwned>{0} par caravane</TD.TravelerOwned>
+	<TD.PickBackUpBed>Ramassez le lit</TD.PickBackUpBed>
+	<TD.ExplainHomeBeds>Utiliser les sacs de coucahe se souviendra des lits attribués dans la colonie d'origine de la caravane. Par défaut, le jeu non modifié conserve le lit attribué à un voyageur, mais il est effacé lorsqu'il utilise un autre lit. Utiliser les sacs de coucahe récupérera son lit à son retour, s'il n'est toujours pas attribué.</TD.ExplainHomeBeds>
+	<TD.SettingReclaimAggresively>Récupérer les lits de la colonie même s'ils ont été réclamés par quelqu'un d'autre</TD.SettingReclaimAggresively>
+	<TD.SettingReclaimAggresivelyDesc>De toute évidence, vous ne pouvez pas réclamer des lits qui ont été conçus pour des soins médicaux ou des prisons</TD.SettingReclaimAggresivelyDesc>
+	<TD.SettingUnAssignOnExit>Annuler l'attribution des lits lorsque vous quittez la carte</TD.SettingUnAssignOnExit>
+	<TD.SettingUnAssignOnExitDesc>Un choix évident lorsque votre caravane forme une nouvelle colonie - et pas de problème de toute façon si vous utilisez l'option ci-dessus pour récupérer</TD.SettingUnAssignOnExitDesc>
+	<TD.SettingFarFromBed>Utilisez un sac de couchage si trop loin du lit assigné</TD.SettingFarFromBed>
+	<TD.SettingFarFromBedAmount>Utilisez le sac de couchage de d'inventaire si le lit attribué est au moins aussi loin:</TD.SettingFarFromBedAmount>
+	<TD.SettingAlsoColonies>Utilisez les sacs de couchage sur la carte de la colonie</TD.SettingAlsoColonies>
+	<TD.SettingAlsoColoniesDesc>Ce mod est vraiment censé être utilisé pour les caravanes, mais il fonctionne tout de même sur les cartes de la maison, mais vous avez généralement déjà des lits attribués, mais ce n'était pas l'intention de toute façon, il est donc désactivé par défaut, mais vous pouvez l'activer. Je suppose</TD.SettingAlsoColoniesDesc>	<TD.UseBedrollsUpdated>Utiliser sacs de couchage mis à jour</TD.UseBedrollsUpdated>
+	<TD.UpdateNewsColonyMaps>Hé! Note rapide. Il existe un nouveau paramètre pour utiliser les sacs de ocuchage sur les cartes des colonies. Il est désactivé par défaut, donc {0} ne recherche pas de lits désinstallés pour le moment.</TD.UpdateNewsColonyMaps>
+
+
+</LanguageData>

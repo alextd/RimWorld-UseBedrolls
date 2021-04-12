@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <UseBedrolls1_0_0.modNameReadable>Utiliser les sacs de couchage</UseBedrolls1_0_0.modNameReadable>
+  <UseBedrolls1_0_0.content>v1.0.0\n\nUne nouvelle option pour utiliser un sac de couchage si le lit attribué est trop éloigné. \n Une nouvelle option pour récupérer votre lit, même lorsqu'il est attribué à quelqu'un d'autre. \n Lorsque le corps de la caravane quitte la carte de la colonie, le lit ne sera pas alloué \n (lorsque le corps de la caravane revient, le lit sera automatiquement réaffecté et il n'y a pas de problème) \n \n v1.1.0 \ n Nouveaux paramètres de mod pour utilisation de sacs de couchage dans les cartes de colonie (désactivé par défaut) \n Si vous voulez que quelqu'un utilise des sacs de couchage dans les cartes de colonie, \n un petit message concernant les nouveaux paramètres apparaîtra. \n | img: OnCaravanDemo |</UseBedrolls1_0_0.content>
+
+</LanguageData>
