@@ -26,7 +26,7 @@ namespace UseBedrolls
 			{
 				Log.Message($"{pawn} taking back bed {bed}");
 				if (pawn.CanReserve(bed))
-					return new Job(JobDefOf.TakeBedroll, bed);
+					return new Job(JobDefOf.TakeBedroll, bed) { ignoreForbidden = true };
 			}
 
 			return null;

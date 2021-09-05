@@ -26,7 +26,7 @@ namespace UseBedrolls
 				result.Add(new Command_Action()
 				{
 					action = delegate () {
-						Job pickupJob = new Job(JobDefOf.TakeBedroll, placedBed);
+						Job pickupJob = new Job(JobDefOf.TakeBedroll, placedBed) { ignoreForbidden = true };
 						__instance.jobs.StartJob(pickupJob, JobCondition.InterruptForced);
 					},
 					defaultLabel = "TD.PickBackUpBed".Translate(),
