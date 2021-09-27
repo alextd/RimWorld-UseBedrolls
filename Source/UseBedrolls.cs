@@ -11,7 +11,7 @@ namespace UseBedrolls
 	{
 		public Mod(ModContentPack content) : base(content)
 		{
-			TD.Utilities.HugsLibUpdateNews.MakeNews(this);
+			//TD.Utilities.HugsLibUpdateNews.MakeNews(this);
 			// initialize settings
 			GetSettings<Settings>();
 #if DEBUG
