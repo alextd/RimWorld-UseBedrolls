@@ -93,7 +93,7 @@ namespace UseBedrolls
 					Log.Message($"Saving Home bed {bed} for {__instance}");
 				}
 
-				if(Settings.Get().unassignOnExit)
+				if(Mod.settings.unassignOnExit)
 				{
 					__instance.ownership.UnclaimBed();
 				}
@@ -113,7 +113,7 @@ namespace UseBedrolls
 			{
 				if (HomeBedComp.Get(__instance, out Building_Bed homeBed) &&
 					homeBed?.Map == map && !homeBed.ForPrisoners &&
-					(Settings.Get().reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
+					(Mod.settings.reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
 				{
 					Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
 					__instance.ownership?.ClaimBedIfNonMedical(homeBed);

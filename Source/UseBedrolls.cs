@@ -9,11 +9,11 @@ namespace UseBedrolls
 {
 	public class Mod : Verse.Mod
 	{
+		public static Settings settings;
 		public Mod(ModContentPack content) : base(content)
 		{
-			//TD.Utilities.HugsLibUpdateNews.MakeNews(this);
 			// initialize settings
-			GetSettings<Settings>();
+			settings = GetSettings<Settings>();
 #if DEBUG
 			Harmony.DEBUG = true;
 #endif
@@ -25,7 +25,7 @@ namespace UseBedrolls
 		public override void DoSettingsWindowContents(Rect inRect)
 		{
 			base.DoSettingsWindowContents(inRect);
-			GetSettings<Settings>().DoWindowContents(inRect);
+			settings.DoWindowContents(inRect);
 		}
 
 		public override string SettingsCategory()

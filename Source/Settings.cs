@@ -6,7 +6,7 @@ using RimWorld;
 
 namespace UseBedrolls
 {
-	class Settings : ModSettings
+	public class Settings : ModSettings
 	{
 		public bool reclaimAggresively = false;
 		public bool unassignOnExit = true;
@@ -15,11 +15,6 @@ namespace UseBedrolls
 		public bool alsoColoniesKnown = true;	//If not loaded from settings, it's a new user and doesn't need this update
 
 		public float distance = 100f;
-
-		public static Settings Get()
-		{
-			return LoadedModManager.GetMod<UseBedrolls.Mod>().GetSettings<Settings>();
-		}
 
 		public void DoWindowContents(Rect wrect)
 		{

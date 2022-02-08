@@ -22,12 +22,12 @@ namespace UseBedrolls
 			if (!pawn.IsColonistPlayerControlled) return;
 
 			Map map = pawn.Map;
-			if (!Settings.Get().alsoColonies && map.IsPlayerHome)
+			if (!Mod.settings.alsoColonies && map.IsPlayerHome)
 			{
-				if(!Settings.Get().alsoColoniesKnown)
+				if(!Mod.settings.alsoColoniesKnown)
 				{
-					Settings.Get().alsoColoniesKnown = true;
-					Settings.Get().Write();
+					Mod.settings.alsoColoniesKnown = true;
+					Mod.settings.Write();
 					Find.LetterStack.ReceiveLetter("TD.UseBedrollsUpdated".Translate(),
 						TranslatorFormattedStringExtensions.Translate("TD.UpdateNewsColonyMaps", pawn),
 						LetterDefOf.NeutralEvent, pawn);
@@ -38,7 +38,7 @@ namespace UseBedrolls
 
 			if (__result.targetA.Thing is Building_Bed ownedBed)
 			{
-				if(!Settings.Get().distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Settings.Get().distance)
+				if(!Mod.settings.distanceCheck || (ownedBed.Position).DistanceTo(pawn.Position) < Mod.settings.distance)
 					return;//Have a bed that close enough, no need to get from inventory
 			}
 
