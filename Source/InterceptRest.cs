@@ -28,8 +28,9 @@ namespace UseBedrolls
 				{
 					Mod.settings.alsoColoniesKnown = true;
 					Mod.settings.Write();
-					Find.LetterStack.ReceiveLetter("TD.UseBedrollsUpdated".Translate(),
-						TranslatorFormattedStringExtensions.Translate("TD.UpdateNewsColonyMaps", pawn),
+					Find.LetterStack.ReceiveLetter(
+						"TD.UseBedrollsUpdated".Translate(),
+						"TD.UpdateNewsColonyMaps".Translate(pawn),
 						LetterDefOf.NeutralEvent, pawn);
 					// I don't think this really needs to be hugslibs update news or anything. alsoColoniesKnown defaults
 				}
