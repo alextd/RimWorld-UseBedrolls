@@ -135,7 +135,11 @@ namespace UseBedrolls
 			if (traveler != null)
 			{
 				List<Gizmo> result = __result.ToList();
-				result.Add(new BedOwnerGizmo(traveler, "TD.TravelerOwned"));
+				result.Add(new BedOwnerGizmo(traveler, "TD.TravelerOwned", () =>
+				{
+					HomeBedComp.Remove(traveler);
+					traveler.ownership?.UnclaimBed();
+				}));
 				__result = result;
 			}
 		}

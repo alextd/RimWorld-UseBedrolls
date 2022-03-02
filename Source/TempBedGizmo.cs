@@ -13,12 +13,14 @@ namespace UseBedrolls
 	{
 		public Pawn owner;
 		public string label;
+		public Action cancelAction;
 
-		public BedOwnerGizmo(Pawn o, string tag) : base()
+		public BedOwnerGizmo(Pawn o, string tag, Action a = null) : base()
 		{
 			label = tag.Translate(o.LabelShortCap);
 			owner = o;
 			order = -50f;
+			cancelAction = a;
 		}
 
 		public override float GetWidth(float maxWidth)
@@ -43,9 +45,16 @@ namespace UseBedrolls
 			Widgets.Label(rectLabel, label);
 			Text.Anchor = TextAnchor.UpperLeft;
 
+			if (Widgets.ButtonInvisible(rect)) //&& Event.current.button == 1 // Eh, right click only? Any mouse button fine.
+				return new GizmoResult(GizmoState.OpenedFloatMenu, Event.current);
+
 			return new GizmoResult(GizmoState.Clear);
 		}
+
+		public override IEnumerable<FloatMenuOption> RightClickFloatMenuOptions =>
+			new FloatMenuOption[] { new FloatMenuOption("CancelButton".Translate(), cancelAction) };
 	}
+
 
 
 	[HarmonyPatch(typeof(Building_Bed), "GetGizmos")]
@@ -60,7 +69,10 @@ namespace UseBedrolls
 			if (owner != null)
 			{
 				List<Gizmo> result = __result.ToList();
-				result.Add(new BedOwnerGizmo(owner, "TD.CarriedBy"));
+				result.Add(new BedOwnerGizmo(owner, "TD.CarriedBy", () =>
+				{
+					__instance.Map.GetComponent<PlacedBedsMapComponent>().placedBeds.Remove(owner);
+				}));
 				__result = result;
 			}
 		}
