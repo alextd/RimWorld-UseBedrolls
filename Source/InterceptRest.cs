@@ -22,20 +22,7 @@ namespace UseBedrolls
 			if (!pawn.IsColonistPlayerControlled) return;
 
 			Map map = pawn.Map;
-			if (!Mod.settings.alsoColonies && map.IsPlayerHome)
-			{
-				if(!Mod.settings.alsoColoniesKnown)
-				{
-					Mod.settings.alsoColoniesKnown = true;
-					Mod.settings.Write();
-					Find.LetterStack.ReceiveLetter(
-						"TD.UseBedrollsUpdated".Translate(),
-						"TD.UpdateNewsColonyMaps".Translate(pawn),
-						LetterDefOf.NeutralEvent, pawn);
-					// I don't think this really needs to be hugslibs update news or anything. alsoColoniesKnown defaults
-				}
-				return;
-			}
+			if (!Mod.settings.alsoColonies && map.IsPlayerHome) return;
 
 			if (__result.targetA.Thing is Building_Bed ownedBed)
 			{

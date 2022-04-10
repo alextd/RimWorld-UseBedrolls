@@ -12,7 +12,6 @@ namespace UseBedrolls
 		public bool unassignOnExit = true;
 		public bool distanceCheck = false;
 		public bool alsoColonies = false;
-		public bool alsoColoniesKnown = true;	//If not loaded from settings, it's a new user and doesn't need this update
 
 		public float distance = 100f;
 
@@ -43,7 +42,6 @@ namespace UseBedrolls
 			Scribe_Values.Look(ref unassignOnExit, "unassignOnExit", true);
 			Scribe_Values.Look(ref distanceCheck, "distanceCheck", false);
 			Scribe_Values.Look(ref alsoColonies, "alsoColonies", false);
-			Scribe_Values.Look(ref alsoColoniesKnown, "alsoColoniesKnown", false);//If loaded from settings, previous user so needs to be told this.
 			Scribe_Values.Look(ref distance, "distance", 100f);
 		}
 	}
