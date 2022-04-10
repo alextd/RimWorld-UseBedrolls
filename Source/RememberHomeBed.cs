@@ -76,8 +76,7 @@ namespace UseBedrolls
 		}
 	}
 
-	//ought to be exitmap but despawn is called before it
-	[HarmonyPatch(typeof(Pawn), "DeSpawn")]
+	[HarmonyPatch(typeof(Pawn), nameof(Pawn.ExitMap))]
 	public static class ExitMapSaver
 	{
 		public static void Prefix(Pawn __instance)
@@ -86,7 +85,7 @@ namespace UseBedrolls
 
 			if (__instance.ownership?.OwnedBed is Building_Bed bed)
 			{
-				if (__instance.Map?.IsPlayerHome ?? false)
+				if (bed.Map?.IsPlayerHome ?? false)
 				{
 					HomeBedComp.Set(__instance, bed);
 
