@@ -19,7 +19,7 @@ namespace UseBedrolls
 		{
 			label = tag.Translate(o.LabelShortCap);
 			owner = o;
-			order = -50f;
+		  Order = -50f;
 			cancelAction = a;
 		}
 

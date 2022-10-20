@@ -31,7 +31,7 @@ namespace UseBedrolls
 					},
 					defaultLabel = "TD.PickBackUpBed".Translate(),
 					icon = ContentFinder<Texture2D>.Get("UI/Designators/Uninstall"),
-					order = -50f
+					Order = -50f
 				});
 				__result = result;
 			}
