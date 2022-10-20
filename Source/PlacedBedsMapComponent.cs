@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +20,12 @@ namespace UseBedrolls
 		{
 			base.ExposeData();
 			Scribe_Collections.Look(ref placedBeds, "placedBeds", LookMode.Reference, LookMode.Reference);
+		}
+
+		public static Pawn PlacedBedOwner(Map map, Building_Bed bed)
+		{
+			var placedBeds = map.GetComponent<PlacedBedsMapComponent>().placedBeds;
+			return placedBeds.FirstOrDefault(kvp => kvp.Value == bed).Key;
 		}
 	}
 
@@ -42,6 +50,36 @@ namespace UseBedrolls
 					placedBeds.Remove(kvp.Key);
 					return;
 				}
+		}
+	}
+
+
+	[HarmonyPatch(typeof(Building_Bed), nameof(Building_Bed.DeSpawn))]
+	public static class DontMessageUnassigned
+	{
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			//else if (InstallBlueprintUtility.ExistingBlueprintFor((Thing) this) == null)
+			//IL_0012: ldarg.0      // this
+			//IL_0013: call         class RimWorld.Blueprint_Install RimWorld.InstallBlueprintUtility::ExistingBlueprintFor(class Verse.Thing)
+			//IL_0018: brtrue.s IL_0099
+			MethodInfo ExistingInfo = AccessTools.Method(typeof(InstallBlueprintUtility), nameof(InstallBlueprintUtility.ExistingBlueprintFor));
+
+			foreach (var inst in instructions)
+			{
+				yield return inst;
+				if(inst.Calls(ExistingInfo))
+				{
+					yield return new CodeInstruction(OpCodes.Ldarg_0);//Building_Bed
+					yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(DontMessageUnassigned), nameof(ShouldSkipMessage))); // ShouldSkipMessage(Blueprint_Install, Building_Bed)
+				}
+			}
+		}
+
+		public static bool ShouldSkipMessage(Blueprint_Install bp, Building_Bed bed)
+		{
+			return bp != null || //reinstall blueprint exists? No need to message
+				PlacedBedsMapComponent.PlacedBedOwner(bed.Map, bed) != null; // This was a placed bed? No need to message
 		}
 	}
 }

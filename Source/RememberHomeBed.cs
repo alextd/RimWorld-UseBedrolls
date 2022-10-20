@@ -66,7 +66,7 @@ namespace UseBedrolls
 		}
 	}
 
-	[HarmonyPatch(typeof(Building_Bed), "DeSpawn")]
+	[HarmonyPatch(typeof(Building_Bed), nameof(Building_Bed.DeSpawn))]
 	public static class BedDeSpawnRemove
 	{
 		public static void Prefix(Building_Bed __instance)
