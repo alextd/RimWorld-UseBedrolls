@@ -40,9 +40,6 @@ namespace UseBedrolls
 				if (RegionAndRoomQuery.RoomAt(c,map).IsPrisonCell != pawn.IsPrisoner)
 					return false;
 
-				if (!GenConstruct.CanPlaceBlueprintAt(invBed.GetInnerIfMinified().def, c, direction, map).Accepted)
-					return false;
-
 				//Support ReplaceStuff allowing blueprints over beds
 				if (EdificeBlocking(invBed.GetInnerIfMinified().def, c, direction, map))
 					return false;
