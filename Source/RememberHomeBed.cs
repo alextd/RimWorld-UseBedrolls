@@ -81,7 +81,7 @@ namespace UseBedrolls
 	{
 		public static void Prefix(Pawn __instance)
 		{
-			if (!__instance.IsColonistPlayerControlled) return;
+			if (!__instance.IsColonist) return;
 
 			if (__instance.ownership?.OwnedBed is Building_Bed bed)
 			{
@@ -92,7 +92,7 @@ namespace UseBedrolls
 					Log.Message($"Saving Home bed {bed} for {__instance}");
 				}
 
-				if(Mod.settings.unassignOnExit)
+				if (Mod.settings.unassignOnExit)
 				{
 					__instance.ownership.UnclaimBed();
 				}
@@ -110,12 +110,14 @@ namespace UseBedrolls
 
 			if (map?.IsPlayerHome ?? false)
 			{
-				if (HomeBedComp.Get(__instance, out Building_Bed homeBed) &&
-					homeBed?.Map == map && !homeBed.ForPrisoners &&
-					(Mod.settings.reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
+				if (HomeBedComp.Get(__instance, out Building_Bed homeBed))
 				{
-					Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
-					__instance.ownership?.ClaimBedIfNonMedical(homeBed);
+					if (homeBed?.Map == map && !homeBed.ForPrisoners &&
+						(Mod.settings.reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
+					{
+						Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
+						__instance.ownership?.ClaimBedIfNonMedical(homeBed);
+					}
 				}
 				Log.Message($"Removing Home beds for {__instance}");
 				HomeBedComp.Remove(__instance);
@@ -130,17 +132,17 @@ namespace UseBedrolls
 		//public override IEnumerable<Gizmo> GetGizmos()
 		public static void Postfix(ref IEnumerable<Gizmo> __result, Building_Bed __instance)
 		{
-			if(HomeBedComp.Get(__instance, out Pawn traveler))
-			if (traveler != null)
-			{
-				List<Gizmo> result = __result.ToList();
-				result.Add(new BedOwnerGizmo(traveler, "TD.TravelerOwned", () =>
+			if (HomeBedComp.Get(__instance, out Pawn traveler))
+				if (traveler != null)
 				{
-					HomeBedComp.Remove(traveler);
-					traveler.ownership?.UnclaimBed();
-				}));
-				__result = result;
-			}
+					List<Gizmo> result = __result.ToList();
+					result.Add(new BedOwnerGizmo(traveler, "TD.TravelerOwned", () =>
+					{
+						HomeBedComp.Remove(traveler);
+						traveler.ownership?.UnclaimBed();
+					}));
+					__result = result;
+				}
 		}
 	}
 }
