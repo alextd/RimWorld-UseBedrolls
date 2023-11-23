@@ -116,7 +116,7 @@ namespace UseBedrolls
 						(Mod.settings.reclaimAggresively || RestUtility.IsValidBedFor(homeBed, __instance, __instance, false, true)))
 					{
 						Log.Message($"Re-claming Home bed {homeBed} for {__instance}");
-						__instance.ownership?.ClaimBedIfNonMedical(homeBed);
+						__instance.ClaimTheGoddamnBedOkay(homeBed);
 					}
 				}
 				Log.Message($"Removing Home beds for {__instance}");

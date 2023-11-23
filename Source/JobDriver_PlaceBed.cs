@@ -16,6 +16,17 @@ namespace UseBedrolls
 		public static JobDef TakeBedroll;
 	}
 
+	public static class ClaimTheGoddamnBed
+	{
+		public static void ClaimTheGoddamnBedOkay(this Pawn pawn, Building_Bed newBed)
+		{
+			if (pawn.IsSlaveOfColony)
+				newBed.ForOwnerType = BedOwnerType.Slave;
+
+			pawn.ownership?.ClaimBedIfNonMedical(newBed);
+		}
+	}
+
 	public class JobDriver_PlaceBedroll : JobDriver
 	{
 		public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -58,7 +69,7 @@ namespace UseBedrolls
 
 				pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds[pawn] = bed;
 
-				pawn.ownership?.ClaimBedIfNonMedical(bed);
+				pawn.ClaimTheGoddamnBedOkay(bed);
 
 				Job restJob = new Job(RimWorld.JobDefOf.LayDown, TargetB);
 				pawn.jobs.StartJob(restJob, JobCondition.Succeeded);
@@ -84,7 +95,7 @@ namespace UseBedrolls
 
 			if(HomeBedComp.Get(pawn, out Building_Bed bed))
 			{
-				pawn?.ownership?.ClaimBedIfNonMedical(bed);
+				pawn.ClaimTheGoddamnBedOkay(bed);
 			}
 		}
 	}
