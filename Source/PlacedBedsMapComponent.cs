@@ -47,6 +47,7 @@ namespace UseBedrolls
 			foreach (KeyValuePair<Pawn, Building_Bed> kvp in placedBeds)
 				if (kvp.Value == __instance)
 				{
+					Log.Message($"Removing {__instance} for {kvp.Key} because RemoveAllOwners()");
 					placedBeds.Remove(kvp.Key);
 					return;
 				}

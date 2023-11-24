@@ -67,9 +67,11 @@ namespace UseBedrolls
 				Job curJob = pawn.jobs.curJob;
 				Building_Bed bed = curJob.targetB.Thing as Building_Bed;
 
-				pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds[pawn] = bed;
+				Log.Message($"{pawn} placing bed {bed}");
 
 				pawn.ClaimTheGoddamnBedOkay(bed);
+				//placedBeds after Claim because claiming can set forowner which removes owners which removes the placedBed.
+				pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds[pawn] = bed;
 
 				Job restJob = new Job(RimWorld.JobDefOf.LayDown, TargetB);
 				pawn.jobs.StartJob(restJob, JobCondition.Succeeded);
@@ -89,12 +91,14 @@ namespace UseBedrolls
 
 		protected override void FinishedRemoving()
 		{
+			Log.Message($"Removing placed beds for {pawn}");
 			Thing minifiedThing = Building.Uninstall();
 			pawn.Map.GetComponent<PlacedBedsMapComponent>().placedBeds.Remove(pawn);
 			pawn.inventory.innerContainer.TryAdd(minifiedThing.SplitOff(1));
 
 			if(HomeBedComp.Get(pawn, out Building_Bed bed))
 			{
+				Log.Message($"Re-claming Home bed {bed} for {pawn}");
 				pawn.ClaimTheGoddamnBedOkay(bed);
 			}
 		}
