@@ -78,10 +78,10 @@ namespace UseBedrolls
 
 			IntVec3 placePosition = IntVec3.Invalid;
 			TraverseParms trav = TraverseParms.For(pawn);
-			if (!CellFinder.TryFindRandomReachableCellNear(root, map, 4, trav, goodCellValidator, null, out placePosition))
-				if (!CellFinder.TryFindRandomReachableCellNear(root, map, 12, trav, goodCellValidator, null, out placePosition))
-					if (!CellFinder.TryFindRandomReachableCellNear(root, map, 4, trav, cellValidator, null, out placePosition))
-						CellFinder.TryFindRandomReachableCellNear(root, map, 12, trav, cellValidator, null, out placePosition);
+			if (!CellFinder.TryFindRandomReachableNearbyCell(root, map, 4, trav, goodCellValidator, null, out placePosition))
+				if (!CellFinder.TryFindRandomReachableNearbyCell(root, map, 12, trav, goodCellValidator, null, out placePosition))
+					if (!CellFinder.TryFindRandomReachableNearbyCell(root, map, 4, trav, cellValidator, null, out placePosition))
+						CellFinder.TryFindRandomReachableNearbyCell(root, map, 12, trav, cellValidator, null, out placePosition);
 
 			if (placePosition.IsValid)
 			{
